@@ -1,0 +1,16 @@
+__pycache__
+wandb*
+checkpoint
+.idea
+.mypy_cache
+.vscode
+MUJOCO_LOG.TXT
+.coverage
+
+# build
+build
+dist
+*.egg-info
+
+# data
+data/distillation_buffer

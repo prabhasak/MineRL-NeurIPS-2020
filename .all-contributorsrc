@@ -1,0 +1,78 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Curt-Park",
+      "name": "Jinwoo Park (Curt)",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14961526?v=4",
+      "profile": "https://github.com/Curt-Park",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "MrSyee",
+      "name": "Kyunghwan Kim",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17582508?v=4",
+      "profile": "https://github.com/MrSyee",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "darthegg",
+      "name": "darthegg",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/16010242?v=4",
+      "profile": "https://github.com/darthegg",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mclearning2",
+      "name": "Mincheol Kim",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/43226417?v=4",
+      "profile": "https://github.com/mclearning2",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "minseop4898",
+      "name": "김민섭",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/34338299?v=4",
+      "profile": "https://github.com/minseop4898",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jinPrelude",
+      "name": "Leejin Jung",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/16518993?v=4",
+      "profile": "https://github.com/jinPrelude",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cyoon1729",
+      "name": "Chris Yoon",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33583101?v=4",
+      "profile": "https://github.com/cyoon1729",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "rl_algorithms",
+  "projectOwner": "medipixel",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
