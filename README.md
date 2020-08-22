@@ -2,7 +2,7 @@ MineRL-NeurIPS-2020
 ==========================
 **Codebase:** Basic implementation of RL algorithms from the [Medipixel](https://github.com/medipixel/rl_algorithms) repo, for the [MineRL](https://minerl.io/docs/) competition. Uses [W&B](https://www.wandb.com/) for logging network parameters (instructions [here](https://github.com/medipixel/rl_algorithms#wb-for-logging))
 
-**Framework, langauge:** PyTorch 1.3.1, Python 3.7
+**Framework, language:** PyTorch 1.3.1, Python 3.7
 
 **Idea**: pick {env, algo} pair -> train RL or train IL (if expert data available)
 
@@ -29,7 +29,7 @@ pip install minerl
 Usage
 -------------
 
-**Comeptition envs:**
+**Competition envs:**
 
 **RL:** ``python run_MineRL_Treechop_v0.py --cfg-path ./configs/MineRL_Treechop_v0/sac.py --seed 42 --log`` (use ``--off-render`` if running on headless system)
 
