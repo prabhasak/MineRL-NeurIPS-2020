@@ -5,9 +5,9 @@
 - Contact: prabhasa.94@gmail.com
 
 Config file for algo: --cfg-path
-Expert demo for fD algos: --demo-path
+Expert demo for fD algos: --demo-path (system-dependent)
 Env name: env_name
-WANDB logs: wandb.init
+WANDB logs: wandb.init (system-dependent)
 """
 
 import argparse
@@ -78,7 +78,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--demo-path",
         type=str,
-        default="data/MineRLTreechopVectorObf-v0",  # PARAM 2: FOR FD ALGOS
+        default = "/home/grads/p/prabhasa/MineRL2020/data/MineRLTreechopVectorObf-v0",  # PARAM 2: FOR FD ALGOS, LENS LAB SYSTEM 202
+        # default="data/MineRLTreechopVectorObf-v0",  # PARAM 2: FOR FD ALGOS, PK LAPTOP
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -95,7 +96,8 @@ def main():
     """Main."""
     args = parse_args()
 
-    wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PARAM 3: INITILAIZE WANDB
+    wandb.init(name='dqn_mtc_obf_1', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PARAM 3: INITILAIZE WANDB
+    # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PARAM 3: INITILAIZE WANDB
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
     # PARAM 3: env initialization and wrappers
