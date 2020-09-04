@@ -24,7 +24,7 @@ import rl_algorithms.common.env.utils as env_utils
 import rl_algorithms.common.helper_functions as common_utils
 from rl_algorithms.utils import Config
 
-from xvfbwrapper import Xvfb
+from xvfbwrapper import Xvfb # only for ecelbw00202
 
 import wandb
 # wandb.config["more"] = "custom"
@@ -80,8 +80,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--demo-path",
         type=str,
-        default = "/home/grads/p/prabhasa/MineRL2020/data/MineRLTreechopVectorObf-v0",  # PARAM 2: FOR FD ALGOS, LENS LAB SYSTEM 202
-        # default="data/MineRLTreechopVectorObf-v0",  # PARAM 2: FOR FD ALGOS, PK LAPTOP
+        # PARAM 2: FOR FD ALGOS
+        default = "/home/grads/p/prabhasa/MineRL2020/data/MineRLTreechopVectorObf-v0",  # ecelbw00202
+        # default="data/MineRLTreechopVectorObf-v0",  # PK laptop
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -98,8 +99,10 @@ def main():
     """Main."""
     args = parse_args()
 
-    wandb.init(name='dqn_mtc_obf_1', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PARAM 3: INITILAIZE WANDB
-    # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PARAM 3: INITILAIZE WANDB
+    # PARAM 3: INITILAIZE WANDB
+    wandb.init(name='dqn_mtc_obf_1', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # ecelbw00202
+    # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/GitHub/MineRL-NeurIPS-2020', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally cloned repo
+    # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
     # PARAM 3: env initialization and wrappers
