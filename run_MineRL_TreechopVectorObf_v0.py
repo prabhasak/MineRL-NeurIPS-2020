@@ -148,7 +148,7 @@ def main():
 
 
 if __name__ == "__main__":
-    vdisplay = Xvfb(width=1280, height=740, colordepth=16)
-    vdisplay.start()
+#     vdisplay = Xvfb(width=1280, height=740, colordepth=16)
+#     vdisplay.start()
     main()
-    vdisplay.stop()
+#     vdisplay.stop()
