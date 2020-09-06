@@ -1,0 +1,89 @@
+[08:13:40] [EnvServerSocketHandler/INFO]: [STDOUT]: Received from localhost:<MissionInit xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SchemaVersion="" PlatformVersion="0.37.0">
+                                <Mission>
+    <About>
+        <Summary>MineRLTreechopVectorObf-v0</Summary>
+    </About>
+
+    <ModSettings>
+         <MsPerTick>50</MsPerTick>
+          <!--<PrioritiseOffscreenRendering>true</PrioritiseOffscreenRendering>-->
+    </ModSettings>
+
+
+  <ServerSection>
+
+    <ServerInitialConditions>
+      <Time>
+        <!--<StartTime>0</StartTime>-->
+        <AllowPassageOfTime>false</AllowPassageOfTime>
+      </Time>
+            
+      <AllowSpawning>true</AllowSpawning>
+    </ServerInitialConditions>
+
+    <ServerHandlers>
+      <DefaultWorldGenerator forceReset="true" generatorOptions="{&quot;coordinateScale&quot;:684.412,&quot;heightScale&quot;:684.412,&quot;lowerLimitScale&quot;:512.0,&quot;upperLimitScale&quot;:512.0,&quot;depthNoiseScaleX&quot;:200.0,&quot;depthNoiseScaleZ&quot;:200.0,&quot;depthNoiseScaleExponent&quot;:0.5,&q
+[08:13:40] [EnvServerSocketHandler/INFO]: [STDOUT]: REPLYING WITH: MALMOOK
+[08:13:40] [Client thread/INFO]: [STDOUT]: Mission received: MineRLTreechopVectorObf-v0
+[08:13:40] [Client thread/INFO]: [STDOUT]: CLIENT request state: CREATING_HANDLERS
+[08:13:40] [Client thread/INFO]: [STDOUT]: CLIENT enter state: CREATING_HANDLERS
+[08:13:40] [Client thread/INFO]: [STDOUT]: Starting command server.
+[08:13:40] [Thread-10/INFO]: [STDOUT]: INFO: ->com(0) Listening for messages on port 10512
+[08:13:41] [Client thread/INFO]: [STDOUT]: CLIENT request state: EVALUATING_WORLD_REQUIREMENTS
+[08:13:41] [Client thread/INFO]: [STDOUT]: CLIENT enter state: EVALUATING_WORLD_REQUIREMENTS
+[08:13:41] [Client thread/INFO]: [STDOUT]: CLIENT request state: CREATING_NEW_WORLD
+[08:13:41] [Client thread/INFO]: [STDOUT]: CLIENT enter state: CREATING_NEW_WORLD
+[08:13:41] [Server thread/INFO]: Starting integrated minecraft server version 1.11.2
+[08:13:41] [Server thread/INFO]: Generating keypair
+[08:13:41] [Server thread/INFO]: Injecting existing block and item data into this server instance
+[08:13:41] [Server thread/INFO]: Applying holder lookups
+[08:13:41] [Server thread/INFO]: Holder lookups applied
+[08:13:41] [Server thread/INFO]: Loading dimension 0 (TEMP_0_7b29f410-3f48-42db-8d27-49b4490eb6cc) (net.minecraft.server.integrated.IntegratedServer@4a5a5aac)
+[08:13:42] [Server thread/INFO]: Loading dimension 1 (TEMP_0_7b29f410-3f48-42db-8d27-49b4490eb6cc) (net.minecraft.server.integrated.IntegratedServer@4a5a5aac)
+[08:13:42] [Server thread/INFO]: Loading dimension -1 (TEMP_0_7b29f410-3f48-42db-8d27-49b4490eb6cc) (net.minecraft.server.integrated.IntegratedServer@4a5a5aac)
+[08:13:42] [Server thread/INFO]: Preparing start region for level 0
+[08:13:43] [Server thread/INFO]: Preparing spawn area: 18%
+[08:13:44] [Server thread/INFO]: Preparing spawn area: 37%
+[08:13:45] [Server thread/INFO]: Preparing spawn area: 57%
+[08:13:46] [Server thread/INFO]: Preparing spawn area: 79%
+[08:13:47] [Server thread/INFO]: Changing view distance to 4, from 10
+[08:13:47] [Netty Local Client IO #0/INFO]: [STDOUT]: Transformed Name: net.minecraft.client.entity.EntityOtherPlayerMP
+[08:13:47] [Netty Local Client IO #0/INFO]: [STDOUT]: MALMO: Attempting to transform MinecraftServer
+[08:13:47] [Netty Local Client IO #0/INFO]: [STDOUT]: MALMO: Found EntityOtherPlayerMP, attempting to transform it
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER request state: WAITING_FOR_MOD_READY
+[08:13:47] [Server thread/INFO]: [STDOUT]: CLIENT request state: WAITING_FOR_SERVER_READY
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER enter state: WAITING_FOR_MOD_READY
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER request state: DORMANT
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER enter state: DORMANT
+[08:13:47] [Server thread/INFO]: [STDOUT]: INCOMING MISSION: Received MissionInit directly through ServerStateMachine constructor.
+[08:13:47] [Server thread/INFO]: [STDOUT]: Mission received: MineRLTreechopVectorObf-v0
+[08:13:47] [Server thread/INFO]: Received mission: §9MineRLTreechopVectorObf-v0
+[08:13:47] [Server thread/INFO]: Source: §alocalhost
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER request state: BUILDING_WORLD
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER enter state: BUILDING_WORLD
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER request state: WAITING_FOR_AGENTS_TO_ASSEMBLE
+[08:13:47] [Netty Local Client IO #0/INFO]: Server protocol version 2
+[08:13:47] [Netty Server IO #1/INFO]: Client protocol version 2
+[08:13:47] [Server thread/INFO]: [STDOUT]: SERVER enter state: WAITING_FOR_AGENTS_TO_ASSEMBLE
+[08:13:47] [Netty Server IO #1/INFO]: Client attempting to join with 5 mods : minecraft@1.11.2,FML@8.0.99.99,malmomod@0.37.0,forge@13.20.0.2228,mcp@9.19
+[08:13:47] [Server thread/INFO]: [STDOUT]: Experiment requires: 
+[08:13:47] [Server thread/INFO]: [STDOUT]: >>>> MineRLAgent
+[08:13:47] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
+[08:13:47] [Server thread/INFO]: [Server thread] Server side modded connection established
+[08:13:47] [Server thread/INFO]: MineRLAgent[local:E:3a60f9d6] logged in with entity id 169 at (-107.5, 70.0, 234.5)
+[08:13:47] [Server thread/INFO]: MineRLAgent joined the game
+[08:13:48] [Client thread/INFO]: [STDOUT]: CLIENT enter state: WAITING_FOR_SERVER_READY
+[08:13:48] [Client thread/INFO]: [STDOUT]: ***Telling server we are ready - MineRLAgent
+[08:13:48] [Server thread/INFO]: Saving and pausing game...
+[08:13:48] [Server thread/INFO]: Saving chunks for level 'TEMP_0_7b29f410-3f48-42db-8d27-49b4490eb6cc'/Overworld
+[08:13:48] [Server thread/INFO]: Saving chunks for level 'TEMP_0_7b29f410-3f48-42db-8d27-49b4490eb6cc'/Nether
+[08:13:48] [Server thread/INFO]: Saving chunks for level 'TEMP_0_7b29f410-3f48-42db-8d27-49b4490eb6cc'/The End
+[08:13:48] [Client thread/INFO]: [STDOUT]: CLIENT request state: RUNNING
+[08:13:48] [Client thread/INFO]: [STDOUT]: CLIENT enter state: RUNNING
+[08:13:48] [Client thread/INFO]: [STDOUT]: Resized the window
+[08:13:48] [Server thread/INFO]: [STDOUT]: SERVER request state: RUNNING
+[08:13:48] [Client thread/INFO]: [STDOUT]: Unpausing
+[08:13:48] [Server thread/INFO]: [STDOUT]: SERVER enter state: RUNNING
+[08:13:48] [Client thread/INFO]: [CHAT] §l400...
+[08:13:48] [Client thread/INFO]: [CHAT] §l399...
+[08:20:18] [EnvServerSocketHandler/INFO]: Java has been asked to exit (code 0) by net.minecraftforge.fml.common.FMLCommonHandler.exitJava(FMLCommonHandler.java:659).
