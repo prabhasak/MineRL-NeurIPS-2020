@@ -1,6 +1,6 @@
 __pycache__
 wandb*
-checkpoint
+#checkpoint
 .idea
 .mypy_cache
 .vscode
