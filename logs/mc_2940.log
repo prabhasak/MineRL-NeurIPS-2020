@@ -1,0 +1,8 @@
+[03:41:33] [Sound Library Loader/WARN]: ERROR MESSAGE:
+[03:41:33] [Sound Library Loader/INFO]: SoundSystem did not load after 30 seconds.
+[03:41:33] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[03:41:33] [Thread-10/INFO]: Switching to No Sound
+[03:41:33] [Thread-10/INFO]: (Silent Mode)
+[03:41:33] [Sound Library Loader/INFO]: Sound engine started
+[03:41:33] [Sound Library Loader/INFO]: Sound engine started
+[03:50:37] [EnvServerSocketHandler/INFO]: Java has been asked to exit (code 0) by net.minecraftforge.fml.common.FMLCommonHandler.exitJava(FMLCommonHandler.java:659).

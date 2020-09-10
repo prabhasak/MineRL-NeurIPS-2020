@@ -122,6 +122,10 @@ class DQNAgent(Agent):
         """Select an action from the input space."""
         self.curr_state = state
 
+        # Added by PK: flatten next_state
+        if 'MineRL' in self.env_info['name']:
+            state = self.MineRL_flatten_states(state)
+
         # epsilon greedy policy
         if not self.args.test and self.epsilon > np.random.random():
             selected_action = np.array(self.env.action_space.sample())

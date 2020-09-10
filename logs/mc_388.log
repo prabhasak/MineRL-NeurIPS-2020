@@ -1,0 +1,649 @@
+[03:51:42] [Thread-5/INFO]: OpenAL initialized.
+[03:51:42] [Thread-7/INFO]: Initializing LWJGL OpenAL
+[03:51:42] [Thread-7/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[03:51:42] [Thread-7/INFO]: [STDERR]: java.lang.IllegalStateException: Only one OpenAL context may be instantiated at any one time.
+[03:51:42] [Thread-7/INFO]: [STDERR]: 	at org.lwjgl.openal.AL.create(AL.java:113)
+Exception in thread "Thread-7" [03:51:42] [Thread-7/INFO]: [STDERR]: 	at org.lwjgl.openal.AL.create(AL.java:102)
+[03:51:42] [Thread-7/INFO]: [STDERR]: 	at org.lwjgl.openal.AL.create(AL.java:206)
+[03:51:42] [Thread-7/INFO]: [STDERR]: 	at paulscode.sound.libraries.LibraryLWJGLOpenAL.init(LibraryLWJGLOpenAL.java:164)
+[03:51:42] [Thread-7/INFO]: [STDERR]: 	at paulscode.sound.SoundSystem.CommandNewLibrary(SoundSystem.java:1576)
+[03:51:42] [Thread-7/INFO]: [STDERR]: 	at paulscode.sound.SoundSystem.CommandQueue(SoundSystem.java:2572)
+[03:51:42] [Thread-7/INFO]: [STDERR]: 	at paulscode.sound.CommandThread.run(CommandThread.java:121)
+[03:51:44] [EnvServerSocketHandler/INFO]: [STDOUT]: Received from localhost:<MissionInit xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SchemaVersion="" PlatformVersion="0.37.0">
+                                <Mission>
+    <About>
+        <Summary>MineRLTreechopVectorObf-v0</Summary>
+    </About>
+
+    <ModSettings>
+         <MsPerTick>50</MsPerTick>
+          <!--<PrioritiseOffscreenRendering>true</PrioritiseOffscreenRendering>-->
+    </ModSettings>
+
+
+  <ServerSection>
+
+    <ServerInitialConditions>
+      <Time>
+        <!--<StartTime>0</StartTime>-->
+        <AllowPassageOfTime>false</AllowPassageOfTime>
+      </Time>
+            
+      <AllowSpawning>true</AllowSpawning>
+    </ServerInitialConditions>
+
+    <ServerHandlers>
+      <DefaultWorldGenerator forceReset="true" generatorOptions="{&quot;coordinateScale&quot;:684.412,&quot;heightScale&quot;:684.412,&quot;lowerLimitScale&quot;:512.0,&quot;upperLimitScale&quot;:512.0,&quot;depthNoiseScaleX&quot;:200.0,&quot;depthNoiseScaleZ&quot;:200.0,&quot;depthNoiseScaleExponent&quot;:0.5,&q
+[03:51:44] [EnvServerSocketHandler/INFO]: [STDOUT]: REPLYING WITH: MALMOOK
+[03:51:44] [Client thread/INFO]: [STDOUT]: Mission received: MineRLTreechopVectorObf-v0
+[03:51:44] [Client thread/INFO]: [STDOUT]: CLIENT request state: CREATING_HANDLERS
+[03:51:44] [Client thread/INFO]: [STDOUT]: CLIENT enter state: CREATING_HANDLERS
+[03:51:44] [Client thread/INFO]: [STDOUT]: Starting command server.
+[03:51:44] [Thread-10/INFO]: [STDOUT]: INFO: ->com(0) Listening for messages on port 10831
+[03:51:44] [Client thread/INFO]: [STDOUT]: CLIENT request state: EVALUATING_WORLD_REQUIREMENTS
+[03:51:44] [Client thread/INFO]: [STDOUT]: CLIENT enter state: EVALUATING_WORLD_REQUIREMENTS
+[03:51:44] [Client thread/INFO]: [STDOUT]: CLIENT request state: CREATING_NEW_WORLD
+[03:51:44] [Client thread/INFO]: [STDOUT]: CLIENT enter state: CREATING_NEW_WORLD
+[03:51:45] [Server thread/INFO]: Starting integrated minecraft server version 1.11.2
+[03:51:45] [Server thread/INFO]: Generating keypair
+[03:51:45] [Server thread/INFO]: Injecting existing block and item data into this server instance
+[03:51:45] [Server thread/INFO]: Applying holder lookups
+[03:51:45] [Server thread/INFO]: Holder lookups applied
+[03:51:45] [Server thread/INFO]: Loading dimension 0 (TEMP_0_9f1cc321-bc61-4843-8c65-bf8ec3230a7a) (net.minecraft.server.integrated.IntegratedServer@46b31e24)
+[03:51:45] [Server thread/INFO]: Loading dimension 1 (TEMP_0_9f1cc321-bc61-4843-8c65-bf8ec3230a7a) (net.minecraft.server.integrated.IntegratedServer@46b31e24)
+[03:51:45] [Server thread/INFO]: Loading dimension -1 (TEMP_0_9f1cc321-bc61-4843-8c65-bf8ec3230a7a) (net.minecraft.server.integrated.IntegratedServer@46b31e24)
+[03:51:45] [Server thread/INFO]: Preparing start region for level 0
+[03:51:46] [Server thread/INFO]: Preparing spawn area: 22%
+[03:51:47] [Server thread/INFO]: Preparing spawn area: 44%
+[03:51:48] [Server thread/INFO]: Preparing spawn area: 67%
+[03:51:49] [Server thread/INFO]: Preparing spawn area: 92%
+[03:51:50] [Server thread/INFO]: Changing view distance to 4, from 10
+[03:51:50] [Netty Local Client IO #0/INFO]: [STDOUT]: Transformed Name: net.minecraft.client.entity.EntityOtherPlayerMP
+[03:51:50] [Netty Local Client IO #0/INFO]: [STDOUT]: MALMO: Attempting to transform MinecraftServer
+[03:51:50] [Netty Local Client IO #0/INFO]: [STDOUT]: MALMO: Found EntityOtherPlayerMP, attempting to transform it
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER request state: WAITING_FOR_MOD_READY
+[03:51:50] [Server thread/INFO]: [STDOUT]: CLIENT request state: WAITING_FOR_SERVER_READY
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER enter state: WAITING_FOR_MOD_READY
+[03:51:50] [Netty Local Client IO #0/INFO]: Server protocol version 2
+[03:51:50] [Netty Server IO #1/INFO]: Client protocol version 2
+[03:51:50] [Netty Server IO #1/INFO]: Client attempting to join with 5 mods : minecraft@1.11.2,FML@8.0.99.99,malmomod@0.37.0,forge@13.20.0.2228,mcp@9.19
+[03:51:50] [Netty Local Client IO #0/INFO]: [Netty Local Client IO #0] Client side modded connection established
+[03:51:50] [Server thread/INFO]: [Server thread] Server side modded connection established
+[03:51:50] [Server thread/INFO]: MineRLAgent[local:E:ea754b82] logged in with entity id 184 at (158.5, 75.0, 192.5)
+[03:51:50] [Server thread/INFO]: MineRLAgent joined the game
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER request state: DORMANT
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER enter state: DORMANT
+[03:51:50] [Server thread/INFO]: [STDOUT]: INCOMING MISSION: Received MissionInit directly through ServerStateMachine constructor.
+[03:51:50] [Server thread/INFO]: [STDOUT]: Mission received: MineRLTreechopVectorObf-v0
+[03:51:50] [Server thread/INFO]: Received mission: §9MineRLTreechopVectorObf-v0
+[03:51:50] [Server thread/INFO]: Source: §alocalhost
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER request state: BUILDING_WORLD
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER enter state: BUILDING_WORLD
+[03:51:50] [Server thread/INFO]: [STDOUT]: SERVER request state: WAITING_FOR_AGENTS_TO_ASSEMBLE
+[03:51:51] [Server thread/INFO]: [STDOUT]: SERVER enter state: WAITING_FOR_AGENTS_TO_ASSEMBLE
+[03:51:51] [Server thread/INFO]: [STDOUT]: Experiment requires: 
+[03:51:51] [Server thread/INFO]: [STDOUT]: >>>> MineRLAgent
+[03:51:51] [Client thread/INFO]: [CHAT] Received mission: §9MineRLTreechopVectorObf-v0
+[03:51:51] [Client thread/INFO]: [CHAT] Source: §alocalhost
+[03:51:51] [Client thread/INFO]: [STDOUT]: CLIENT enter state: WAITING_FOR_SERVER_READY
+[03:51:51] [Client thread/INFO]: [STDOUT]: ***Telling server we are ready - MineRLAgent
+[03:51:51] [Server thread/INFO]: Saving and pausing game...
+[03:51:51] [Server thread/INFO]: Saving chunks for level 'TEMP_0_9f1cc321-bc61-4843-8c65-bf8ec3230a7a'/Overworld
+[03:51:51] [Server thread/INFO]: Saving chunks for level 'TEMP_0_9f1cc321-bc61-4843-8c65-bf8ec3230a7a'/Nether
+[03:51:51] [Server thread/INFO]: Saving chunks for level 'TEMP_0_9f1cc321-bc61-4843-8c65-bf8ec3230a7a'/The End
+[03:51:52] [Client thread/INFO]: [STDOUT]: CLIENT request state: RUNNING
+[03:51:52] [Client thread/INFO]: [STDOUT]: CLIENT enter state: RUNNING
+[03:51:52] [Server thread/INFO]: [STDOUT]: SERVER request state: RUNNING
+[03:51:52] [Server thread/INFO]: [STDOUT]: SERVER enter state: RUNNING
+[03:51:52] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:51:52] [Client thread/INFO]: [STDOUT]: Unpausing
+[03:51:53] [Client thread/INFO]: [CHAT] §l400...
+[03:51:53] [Server thread/INFO]: [STDOUT]: Warning: managed 9/20 ticks this second.
+[03:51:53] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:51:54] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:51:59] [Server thread/INFO]: [STDOUT]: Warning: managed 1/20 ticks this second.
+[03:51:59] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:00] [Server thread/INFO]: [STDOUT]: Warning: managed 1/20 ticks this second.
+[03:52:01] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:01] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:02] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:02] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:03] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:04] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:04] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:05] [Client thread/INFO]: [CHAT] §l399...
+[03:52:05] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:06] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:06] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:07] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:07] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:09] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:09] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:10] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:11] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:12] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:13] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:14] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:14] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:15] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:16] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:17] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:18] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:19] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:19] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:20] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:20] [Client thread/INFO]: [CHAT] §l398...
+[03:52:21] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:21] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:22] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:22] [Sound Library Loader/WARN]: ERROR MESSAGE:
+[03:52:22] [Sound Library Loader/INFO]: SoundSystem did not load after 30 seconds.
+[03:52:22] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[03:52:23] [Thread-13/INFO]: Switching to No Sound
+[03:52:23] [Thread-13/INFO]: (Silent Mode)
+[03:52:23] [Sound Library Loader/INFO]: Sound engine started
+[03:52:23] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:23] [Sound Library Loader/INFO]: Sound engine started
+[03:52:23] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:24] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:25] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:26] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:26] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:27] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:27] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:28] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:29] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:30] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:30] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:31] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:31] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:32] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:33] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:34] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:34] [Client thread/INFO]: [CHAT] §l397...
+[03:52:34] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:35] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:35] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:36] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:37] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:38] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:38] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:39] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:39] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:40] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:41] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:41] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:42] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:43] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:43] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:44] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:44] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:45] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:45] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:46] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:47] [Client thread/INFO]: [CHAT] §l396...
+[03:52:47] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:48] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:48] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:49] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:49] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:50] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:51] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:51] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:52] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:53] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:53] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:54] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:54] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:55] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:55] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:56] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:57] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:57] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:58] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:52:59] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:52:59] [Client thread/INFO]: [CHAT] §l395...
+[03:52:59] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:00] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:00] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:01] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:02] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:03] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:03] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:04] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:04] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:05] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:05] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:06] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:07] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:07] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:08] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:09] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:09] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:10] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:10] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:11] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:12] [Client thread/INFO]: [CHAT] §l394...
+[03:53:12] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:12] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:13] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:14] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:14] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:15] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:15] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:16] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:17] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:17] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:18] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:19] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:19] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:20] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:20] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:21] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:22] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:22] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:23] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:24] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:24] [Client thread/INFO]: [CHAT] §l393...
+[03:53:24] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:25] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:25] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:26] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:27] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:27] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:28] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:29] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:29] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:30] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:30] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:32] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:32] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:34] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:35] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:36] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:36] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:37] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:38] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:39] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:39] [Client thread/INFO]: [CHAT] §l392...
+[03:53:39] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:40] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:40] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:41] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:42] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:43] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:43] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:44] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:44] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:45] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:46] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:47] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:47] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:48] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:48] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:49] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:50] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:51] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:51] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:52] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:53] [Client thread/INFO]: [CHAT] §l391...
+[03:53:53] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:54] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:54] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:55] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:56] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:57] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:57] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:58] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:53:58] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:53:59] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:00] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:01] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:01] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:02] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:03] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:04] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:04] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:05] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:05] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:06] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:07] [Client thread/INFO]: [CHAT] §l390...
+[03:54:07] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:08] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:08] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:09] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:10] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:10] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:11] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:12] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:12] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:13] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:14] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:15] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:15] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:16] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:17] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:18] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:19] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:20] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:20] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:21] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:22] [Client thread/INFO]: [CHAT] §l389...
+[03:54:22] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:23] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:23] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:24] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:25] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:26] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:26] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:27] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:28] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:29] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:29] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:30] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:31] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:32] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:32] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:33] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:34] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:34] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:35] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:36] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:36] [Client thread/INFO]: [CHAT] §l388...
+[03:54:36] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:37] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:38] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:38] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:39] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:40] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:40] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:41] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:42] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:42] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:43] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:44] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:44] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:45] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:46] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:47] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:47] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:49] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:49] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:50] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:51] [Client thread/INFO]: [CHAT] §l387...
+[03:54:51] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:52] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:52] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:53] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:54] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:55] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:55] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:56] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:57] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:58] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:54:58] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:54:59] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:00] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:00] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:01] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:02] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:02] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:03] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:04] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:04] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:05] [Client thread/INFO]: [CHAT] §l386...
+[03:55:05] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:06] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:06] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:07] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:08] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:08] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:09] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:10] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:10] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:11] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:11] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:12] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:13] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:14] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:14] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:15] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:15] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:17] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:17] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:19] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:19] [Client thread/INFO]: [CHAT] §l385...
+[03:55:19] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:20] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:21] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:22] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:22] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:24] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:24] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:25] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:26] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:27] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:27] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:28] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:29] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:30] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:30] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:31] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:32] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:34] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:34] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:36] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:36] [Client thread/INFO]: [CHAT] §l384...
+[03:55:36] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:37] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:38] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:39] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:40] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:41] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:41] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:42] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:43] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:44] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:44] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:45] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:46] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:47] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:48] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:49] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:49] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:51] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:51] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:52] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:53] [Client thread/INFO]: [CHAT] §l383...
+[03:55:53] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:54] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:54] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:55] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:56] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:57] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:57] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:58] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:55:59] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:55:59] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:00] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:01] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:02] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:03] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:03] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:05] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:05] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:06] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:07] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:08] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:09] [Client thread/INFO]: [CHAT] §l382...
+[03:56:09] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:10] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:10] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:11] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:12] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:13] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:13] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:14] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:15] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:16] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:16] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:17] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:18] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:19] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:19] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:20] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:21] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:22] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:22] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:23] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:24] [Client thread/INFO]: [CHAT] §l381...
+[03:56:24] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:25] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:25] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:26] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:27] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:27] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:28] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:29] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:29] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:30] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:31] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:32] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:33] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:34] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:34] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:35] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:36] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:37] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:38] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:39] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:39] [Client thread/INFO]: [CHAT] §l380...
+[03:56:39] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:40] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:41] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:42] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:42] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:43] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:43] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:44] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:45] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:46] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:46] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:47] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:48] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:49] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:49] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:50] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:51] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:52] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:52] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:53] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:53] [Client thread/INFO]: [CHAT] §l379...
+[03:56:53] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:54] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:55] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:56] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:56] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:57] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:58] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:56:58] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:56:59] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:00] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:00] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:01] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:02] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:03] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:03] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:04] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:05] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:06] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:06] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:07] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:08] [Client thread/INFO]: [CHAT] §l378...
+[03:57:08] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:09] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:09] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:10] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:11] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:12] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:12] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:13] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:14] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:14] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:15] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:16] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:16] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:17] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:18] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:18] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:19] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:20] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:20] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:21] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:21] [Client thread/INFO]: [CHAT] §l377...
+[03:57:22] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:22] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:23] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:24] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:24] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:25] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:25] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:26] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:27] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:28] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:28] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:29] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:29] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:30] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:31] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:31] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:32] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:33] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:33] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:34] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:34] [Client thread/INFO]: [CHAT] §l376...
+[03:57:34] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:35] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:36] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:37] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:37] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:38] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:38] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:39] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:40] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:40] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:41] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:42] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:42] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:43] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:43] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:44] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:45] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:45] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:46] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:47] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:47] [Client thread/INFO]: [CHAT] §l375...
+[03:57:47] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:49] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:49] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:50] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:51] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:52] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:52] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:53] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:54] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:55] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:55] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:56] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:57] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:58] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:58] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:57:59] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:57:59] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:58:00] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:58:01] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:58:02] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:58:03] [Client thread/INFO]: [CHAT] §l374...
+[03:58:03] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
+[03:58:04] [Client thread/INFO]: [STDOUT]: Resized the window
+[03:59:40] [Server thread/INFO]: [STDOUT]: Warning: managed 2/20 ticks this second.
