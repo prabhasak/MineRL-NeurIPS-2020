@@ -142,6 +142,7 @@ def main():
     if not args.test:
         agent.train()
     else:
+        import pdb; pdb.set_trace()
         agent.test()
 
     wandb.join()
