@@ -136,6 +136,82 @@ class C51DuelingMLP(MLP, NoisyMLPHandler):
 
         return q
 
+@HEADS.register_module
+class C51DuelingMLPConv(MLP, NoisyMLPHandler):
+    """Multilayered perceptron for C51 with dueling construction."""
+
+    def __init__(
+        self, configs: ConfigDict, hidden_activation: Callable = F.relu,
+    ):
+        """Initialize."""
+        if configs.use_noisy_net:
+            linear_layer = NoisyLinearConstructor(configs.std_init)
+            init_fn: Callable = identity
+        else:
+            linear_layer = nn.Linear
+            init_fn = init_layer_uniform
+        super(C51DuelingMLPConv, self).__init__(
+            configs=configs,
+            hidden_activation=hidden_activation,
+            linear_layer=linear_layer,
+            use_output_layer=False,
+        )
+        in_size = configs.hidden_sizes[-1]
+        self.action_size = configs.output_size
+        self.atom_size = configs.atom_size
+        self.output_size = configs.output_size * configs.atom_size
+        self.v_min, self.v_max = configs.v_min, configs.v_max
+
+        # Conv layers
+        self.n_input_channels = 4
+        self.conv_layers = nn.ModuleList(
+            [
+                nn.Conv2d(n_input_channels, 32, 8, stride=4),
+                nn.Conv2d(32, 64, 4, stride=2),
+                nn.Conv2d(64, 64, 3, stride=1),
+            ]
+        )
+        
+        # set advantage layer
+        self.advantage_hidden_layer = self.linear_layer(in_size, in_size)
+        self.advantage_layer = self.linear_layer(in_size, self.output_size)
+        self.advantage_layer = init_fn(self.advantage_layer)
+
+        # set value layer
+        self.value_hidden_layer = self.linear_layer(in_size, in_size)
+        self.value_layer = self.linear_layer(in_size, self.atom_size)
+        self.value_layer = init_fn(self.value_layer)
+
+    def forward_(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Get distribution for atoms."""
+        action_size, atom_size = self.action_size, self.atom_size
+
+        x = super(C51DuelingMLPConv, self).forward(x)
+        
+        # Conv layers
+        for l in self.conv_layers:
+            x = self.hidden_activation(l(x))
+            
+        adv_x = self.hidden_activation(self.advantage_hidden_layer(x))
+        val_x = self.hidden_activation(self.value_hidden_layer(x))
+
+        advantage = self.advantage_layer(adv_x).view(-1, action_size, atom_size)
+        value = self.value_layer(val_x).view(-1, 1, atom_size)
+        advantage_mean = advantage.mean(dim=1, keepdim=True)
+
+        q_atoms = value + advantage - advantage_mean
+        dist = F.softmax(q_atoms, dim=2)
+
+        support = torch.linspace(self.v_min, self.v_max, self.atom_size).to(device)
+        q = torch.sum(dist * support, dim=2)
+
+        return dist, q
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward method implementation."""
+        _, q = self.forward_(x)
+
+        return q
 
 @HEADS.register_module
 class IQNMLP(MLP, NoisyMLPHandler):
