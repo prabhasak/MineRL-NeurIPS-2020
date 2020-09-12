@@ -38,7 +38,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--cfg-path",
         type=str,
-        default="./configs/MineRLTreechopVectorObf_v1/dqn.py", # PARAM 1: ALGORITHM
+        default="./configs/MineRLTreechopVectorObf_v0/dqn_conv.py", # PARAM 1: ALGORITHM
         help="config path",
     )
     parser.add_argument(
