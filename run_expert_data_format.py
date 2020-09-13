@@ -6,9 +6,15 @@ import numpy as np
 import pickle as pkl
 from pathlib import Path
 
-path_pkl = 'C:/MineRL/medipixel/data/'
-path_npy = 'C:/MineRL/data/32-means/'
-path_npz = 'C:/MineRL/data/'
+#Windows
+# path_pkl = 'C:/MineRL/medipixel/data/'
+# path_npy = 'C:/MineRL/data/32-means/'
+# path_npz = 'C:/MineRL/data/'
+
+#ecelbw002
+path_pkl = './data/'
+path_npy = './data/32-means/'
+path_npz = '/home/grads/p/prabhasa/MineRL2020/data'
 
 warnings.filterwarnings("ignore", category=UserWarning, module='gym')
 
