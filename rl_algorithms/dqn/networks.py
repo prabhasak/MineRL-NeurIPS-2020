@@ -166,7 +166,7 @@ class C51DuelingMLPConv(MLP, NoisyMLPHandler):
         self.n_input_channels = 4
         self.conv_layers = nn.ModuleList(
             [
-                nn.Conv2d(n_input_channels, 32, 8, stride=4),
+                nn.Conv2d(self.n_input_channels, 32, 8, stride=4),
                 nn.Conv2d(32, 64, 4, stride=2),
                 nn.Conv2d(64, 64, 3, stride=1),
             ]

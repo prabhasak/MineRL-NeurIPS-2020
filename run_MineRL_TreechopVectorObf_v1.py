@@ -18,7 +18,7 @@ import os
 import gym
 import envs
 import numpy as np
-from envs.wrappers import MineRLObservationWrapper, MineRLActionWrapper, MineRLDiscreteActionWrapper, MineRLDeterministic, MineRLPOVWithVectorWrapper
+from envs.wrappers import wrap
 from rl_algorithms import build_agent
 import rl_algorithms.common.env.utils as env_utils
 import rl_algorithms.common.helper_functions as common_utils
@@ -63,10 +63,10 @@ def parse_args() -> argparse.Namespace:
         "--log", dest="log", action="store_false", help="turn on logging"
     )
     parser.add_argument(
-        "--save-period", type=int, default=5, help="save model period"
+        "--save-period", type=int, default=10, help="save model period"
     )
     parser.add_argument(
-        "--episode-num", type=int, default=25, help="total episode num"
+        "--episode-num", type=int, default=50, help="total episode num"
     )
     parser.add_argument(
         "--max-episode-steps", type=int, default=8000, help="max episode step"
@@ -100,7 +100,7 @@ def main():
     args = parse_args()
 
     # PARAM 3: INITILAIZE WANDB
-    wandb.init(name='dqn_mtc_obf_3', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='september', reinit=True, sync_tensorboard=True) # ecelbw00202
+    wandb.init(name='dqn_mtc_obf_5', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='september', reinit=True, sync_tensorboard=True) # ecelbw00202
     # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/GitHub/MineRL-NeurIPS-2020', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally cloned repo
     # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
@@ -109,11 +109,7 @@ def main():
     env_name = "MineRLTreechopVectorObf-v0"
     # env_name = "MineRLObtainDiamondVectorObf-v0"
     env = gym.make(env_name)
-    # env = MineRLObservationWrapper(env) # Without Conv layers
-    env = MineRLPOVWithVectorWrapper(env)
-    env = MineRLActionWrapper(env)
-    env = MineRLDiscreteActionWrapper(env)  # PARAM 4.1: FOR DISCRETE ACTION SPACES (K-MEANS)
-    env = MineRLDeterministic(env, args.seed)
+    env = wrap(env, conv=True, discrete=True, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
     env = env_utils.set_env(env, args)
 
     # set a random seed
@@ -132,7 +128,7 @@ def main():
     # PK: Added np.array to obs_space and changed is_discrete
     cfg.agent.env_info = dict(
         name=env_name,
-        observation_space=np.array(env.observation_space),
+        observation_space=env.observation_space,
         action_space=env.action_space,
         is_discrete=True,  # PARAM 4.2: FOR DISCRETE ACTION SPACES
     )
