@@ -81,8 +81,8 @@ def main():
                 if key == 'action$vector':
                     for step in range(current_trajectory_length):
                         expert_data_pkl[start+step].insert(1, expert_trajectory[key][step])
-                        expert_data_pkl[start+step].insert(4, 'False')
-            expert_data_pkl[total_trajectory_length-1][4] = 'True'
+                        expert_data_pkl[start+step].insert(4, False)
+            expert_data_pkl[total_trajectory_length-1][4] = True
             trajectory_count += 1
             print('file count: ', trajectory_count)
 
@@ -92,10 +92,10 @@ def main():
 
         # print(trajectory_count) # sanity check if all files were parsed
         print('Total number of steps in expert: ', total_trajectory_length)
-        np.savez(os.path.join(path_pkl, env_id[:-3].lower()+'_'+trajectory_count), **expert_data_npz)
+        np.savez(os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(trajectory_count)), **expert_data_npz)
 
         # Step 2: Converting to .pkl format
-        with open(os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+trajectory_count)), 'wb') as handle:
+        with open(os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(trajectory_count))), 'wb') as handle:
             pkl.dump(expert_data_pkl, handle, protocol=pkl.HIGHEST_PROTOCOL)
 
 
@@ -109,13 +109,15 @@ def main():
             with open(os.path.join(path_pkl, '{}_demo.pkl'.format(env_id[:-3].lower())), 'rb') as handle:
                 expert_data = pkl.load(handle)
         elif 'MineRL' in env_id:
-            with open(os.path.join(path_pkl, '{}_demo.pkl'.format(env_id[:-3].lower()+'_'+args.traj_use)), 'rb') as handle:
+            with open(os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(args.traj_use))), 'rb') as handle:
                 expert_data = pkl.load(handle)
 
         trajectory_length = len(expert_data)
         for index in range(trajectory_length):
             import pdb; pdb.set_trace()
             print('Step {} of the expert data: '.format(index), expert_data[index])
+            for i in range(5):
+                print(type(expert_data[index][i]))
             # if args.episodic and expert_data[-1]!='True':
 
 
@@ -159,7 +161,7 @@ def main():
 
     if args.view_npz_final: # view combined npz
         print('Here are some stats of the MineRL expert... ')
-        expert_data = np.load(os.path.join(path_pkl, env_id[:-3].lower()+'_'+args.traj_use+'.npz'), allow_pickle=True) #Gym-envs
+        expert_data = np.load(os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(args.traj_use)+'.npz'), allow_pickle=True) #Gym-envs
 
         trajectory_max = {'reward': [], 'observation$vector': [], 'action$vector': []}
         trajectory_min = {'reward': [], 'observation$vector': [], 'action$vector': []}
