@@ -81,8 +81,7 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         # PARAM 2: FOR FD ALGOS
-        default = "/home/grads/p/prabhasa/MineRL2020/data/MineRLTreechopVectorObf-v0",  # ecelbw00202
-        # default="data/MineRLTreechopVectorObf-v0",  # PK laptop
+        default = "./data/minerltreechopvectorobf.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
