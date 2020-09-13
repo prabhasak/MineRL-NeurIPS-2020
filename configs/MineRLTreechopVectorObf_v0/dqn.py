@@ -16,7 +16,7 @@ agent = dict(
         multiple_update=1,  # multiple learning updates
         train_freq=1,  # in openai baselines, train_freq = 4
         gradient_clip=10.0,  # dueling: 10.0
-        n_step=10,
+        n_step=3,
         w_n_step=1.0,
         w_q_reg=1e-7,
         per_alpha=0.6,  # openai baselines: 0.6
@@ -26,7 +26,7 @@ agent = dict(
         # Epsilon Greedy
         max_epsilon=1.0,
         min_epsilon=0.01,  # openai baselines: 0.01
-        epsilon_decay=7.5e-6,  # openai baselines: 1e-7 / 1e-1
+        epsilon_decay=1e-5,  # openai baselines: 1e-7 / 1e-1
     ),
     learner_cfg=dict(
         type="DQNLearner",
