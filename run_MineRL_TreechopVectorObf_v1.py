@@ -38,7 +38,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--cfg-path",
         type=str,
-        default="./configs/MineRLTreechopVectorObf_v0/dqfd.py", # PARAM 1: ALGORITHM
+        default="./configs/MineRLTreechopVectorObf_v0/dqn_conv.py", # PARAM 1: ALGORITHM
         help="config path",
     )
     parser.add_argument(
@@ -81,7 +81,8 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         # PARAM 2: FOR FD ALGOS
-        default = "./data/minerltreechopvectorobf_5.pkl",
+        #default = "./data/minerltreechopvectorobf_5.pkl",
+	default = None,
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
