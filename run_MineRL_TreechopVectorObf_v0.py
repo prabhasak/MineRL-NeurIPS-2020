@@ -18,7 +18,7 @@ import os
 import gym
 import envs
 import numpy as np
-from envs.wrappers import MineRLObservationWrapper, MineRLActionWrapper, MineRLDiscreteActionWrapper, MineRLDeterministic
+from envs.wrappers import wrap
 from rl_algorithms import build_agent
 import rl_algorithms.common.env.utils as env_utils
 import rl_algorithms.common.helper_functions as common_utils
@@ -81,7 +81,7 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         # PARAM 2: FOR FD ALGOS
-        default = "./data/minerltreechopvectorobf_5.pkl",
+        default="./data/minerltreechopvectorobf_flat_5.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -99,7 +99,7 @@ def main():
     args = parse_args()
 
     # PARAM 3: INITILAIZE WANDB
-    wandb.init(name='dqn_mtc_obf_4', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='september', reinit=True, sync_tensorboard=True) # ecelbw00202
+    wandb.init(name='dqn_mtc_obf_5', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='september', reinit=True, sync_tensorboard=True) # ecelbw00202
     # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/GitHub/MineRL-NeurIPS-2020', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally cloned repo
     # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
@@ -108,10 +108,7 @@ def main():
     env_name = "MineRLTreechopVectorObf-v0"
     # env_name = "MineRLObtainDiamondVectorObf-v0"
     env = gym.make(env_name)
-    env = MineRLObservationWrapper(env)
-    env = MineRLActionWrapper(env)
-    env = MineRLDiscreteActionWrapper(env)  # PARAM 4.1: FOR DISCRETE ACTION SPACES (K-MEANS)
-    env = MineRLDeterministic(env, args.seed)
+    env = wrap(env, conv=False, discrete=True, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
     env = env_utils.set_env(env, args)
 
     # set a random seed

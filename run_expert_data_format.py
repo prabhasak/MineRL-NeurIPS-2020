@@ -6,6 +6,9 @@ import numpy as np
 import pickle as pkl
 from pathlib import Path
 
+import gym
+import minerl
+
 #Windows
 # path_pkl = 'C:/MineRL/medipixel/data/'
 # path_npy = 'C:/MineRL/data/32-means/'
@@ -34,18 +37,39 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', help='environment ID', type=str, default='MineRLTreechopVectorObf-v0', choices=env_list())
     parser.add_argument('--algo', help='RL Algorithm', default='sac', type=str, required=False, choices=algo_list)
-    parser.add_argument('--convert', help='Convert npz data into pkl', action='store_true')
-    parser.add_argument('--traj-use', help='Number of trajectories used to create expert', type=int, default=210, choices=range(1, 210))
-    # parser.add_argument('--exp-id', help='Experiment ID (default: -1, no exp folder, 0: latest)', default=0, type=int)
-    # parser.add_argument('--optimal', help='Whether model is optimal or suboptimal', action='store_true')
+
+    parser.add_argument('-conv-vec', '--convert-vec', help='Convert npz vector data into pkl', action='store_true')
+    parser.add_argument('-conv-full', '--convert-full', help='Convert pov and vector npz data into pkl', action='store_true')
+    parser.add_argument('--view-vec', help='View vector data as npz or pkl', action='store_true')
+    parser.add_argument('--view-full', help='View pov and vector data as npz or pkl', action='store_true')
+
+    parser.add_argument('-flatten', '--flatten-states', help='Convert current_state and next_state vector to a 12352-length array', action='store_true')
+    parser.add_argument('-aggregate', '--aggregate-states', help='Add current_state and next_state vector to pov as a fourth channel', action='store_true')
+    parser.add_argument('--traj-use', help='Number of trajectories used to create expert', type=int, default=5, choices=range(1, 211))
+
     parser.add_argument('--view-pkl', help='View pkl file', action='store_true')
     parser.add_argument('--view-npy', help='View npy file (only MineRL envs)', action='store_true')
     parser.add_argument('--view-npz', help='View npz file (only MineRL envs)', action='store_true')
     parser.add_argument('--view-npz-final', help='View npz file (only MineRL envs)', action='store_true')
+
     parser.add_argument('--episodic', help='Episodic data ', action='store_true')
     parser.add_argument('--seed', help='Random generator seed', type=int, default=0)
     args = parser.parse_args()
     return args
+
+def MineRL_flatten_state(state_unflattened):
+    n, state = len(state_unflattened), np.array([])
+    for i in range(n):
+        state = np.append(state, state_unflattened[i].flatten()) # for competition envs
+    return state
+
+def MineRL_aggregate_state(state):
+    vector_scale = 1 / 255
+    pov = state['pov']
+    vector_scaled = state['vector'] / vector_scale
+    num_elem = pov.shape[-3] * pov.shape[-2]
+    vector_channel = np.tile(vector_scaled, num_elem // vector_scaled.shape[-1]).reshape(*pov.shape[:-1], -1)  # noqa
+    return np.concatenate([pov, vector_channel], axis=-1)
 
 def main():
     args = get_args()
@@ -53,9 +77,8 @@ def main():
     # algo = args.algo
     # exp_id = args.exp_id
 
-    # common_utils.set_random_seed(args.seed, env)
-
-    if ((args.convert) and ('MineRL' in env_id)): # If MineRL env, combine npz-s and convert to pkl
+    # Convert vector component of expert data into pkl format
+    if ((args.convert_vec) and ('MineRL' in env_id)): # If MineRL env, combine npz-s and convert to pkl
         # expert_data_pkl = {'state': [], 'action': [], 'reward': [], 'next_state': [], 'done': []}
         expert_data_npz = {'reward': [], 'observation$vector': [], 'action$vector': []}
 
@@ -70,7 +93,6 @@ def main():
 
             for key in expert_trajectory:
                 expert_data_npz[key].append(expert_trajectory[key])
-
                 if key == 'reward':
                     for step in range(current_trajectory_length):
                         expert_data_pkl.append([expert_trajectory[key][step]])
@@ -89,13 +111,58 @@ def main():
             if trajectory_count == args.traj_use:
                 print('Used {} trajectories to create expert data. Exiting'.format(trajectory_count))
                 break
-
         # print(trajectory_count) # sanity check if all files were parsed
-        print('Total number of steps in expert: ', total_trajectory_length)
-        np.savez(os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(trajectory_count)), **expert_data_npz)
 
-        # Step 2: Converting to .pkl format
-        with open(os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(trajectory_count))), 'wb') as handle:
+        print('Total number of steps in expert: ', total_trajectory_length)
+        np.savez(os.path.join(path_pkl, env_id[:-3].lower()+'_vector_'+str(trajectory_count)), **expert_data_npz)
+        with open(os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_vector_'+str(trajectory_count))), 'wb') as handle:
+            pkl.dump(expert_data_pkl, handle, protocol=pkl.HIGHEST_PROTOCOL)
+
+
+    # Convert complete expert data into pkl format
+    if ((args.convert_full) and ('MineRL' in env_id)):
+        expert_data_npz, expert_data_pkl, trajectory_count = {'reward': [], 'observation$vector': [], 'action$vector': []}, [], 0
+        data = minerl.data.make(env_id, data_dir=path_npz)
+
+        for path in Path(os.path.join(path_npz, env_id)).glob('*'):
+            experience = data.load_data(str(path))
+
+            for items in experience:
+                # import pdb; pdb.set_trace()
+                # print(items)
+
+                if args.flatten_states: # convert current_state and next_state to a 12352-length array
+                    current_state = MineRL_flatten_state([items[0]['pov'], items[0]['vector']])
+                    next_state = MineRL_flatten_state([items[3]['pov'], items[3]['vector']])
+                elif args.aggregate_states: # add current_state and next_state vector to pov as a fourth channel
+                    current_state = MineRL_aggregate_state(items[0])
+                    next_state = MineRL_aggregate_state(items[3])
+
+                expert_data_npz['reward'].append(items[2])
+                expert_data_npz['observation$vector'].append(current_state)
+                expert_data_npz['action$vector'].append(items[1]['vector'])
+                expert_data_pkl.append([current_state, items[1]['vector'], items[2], next_state, items[4]])
+
+            trajectory_count += 1
+            print('file count: ', trajectory_count)
+
+            if trajectory_count == args.traj_use:
+                print('Used {} trajectories to create expert data. Exiting'.format(trajectory_count))
+                break
+        # print(trajectory_count) # sanity check if all files were parsed
+
+        if args.flatten_states:
+            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_flat_'+str(trajectory_count))
+            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_flat_'+str(trajectory_count)))
+        elif args.aggregate_states:
+            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_conv_'+str(trajectory_count))
+            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_conv_'+str(trajectory_count)))
+        else:
+            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(trajectory_count))
+            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(trajectory_count)))
+
+        np.savez(save_path_npz, **expert_data_npz)
+        with open(save_path_pkl, 'wb') as handle:
             pkl.dump(expert_data_pkl, handle, protocol=pkl.HIGHEST_PROTOCOL)
 
 
@@ -109,13 +176,23 @@ def main():
             with open(os.path.join(path_pkl, '{}_demo.pkl'.format(env_id[:-3].lower())), 'rb') as handle:
                 expert_data = pkl.load(handle)
         elif 'MineRL' in env_id:
-            with open(os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(args.traj_use))), 'rb') as handle:
+            if args.view_vec:
+                path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_vector_'+str(args.traj_use)))
+            elif args.view_full:
+                if args.flatten_states:
+                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_flat_'+str(args.traj_use)))
+                elif args.aggregate_states:
+                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_conv_'+str(args.traj_use)))
+                else:
+                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(args.traj_use)))
+            with open(path_expert, 'rb') as handle:
                 expert_data = pkl.load(handle)
 
         trajectory_length = len(expert_data)
         for index in range(trajectory_length):
             import pdb; pdb.set_trace()
             print('Step {} of the expert data: '.format(index), expert_data[index])
+            print(expert_data[index])
             for i in range(5):
                 print(type(expert_data[index][i]))
             # if args.episodic and expert_data[-1]!='True':
@@ -145,10 +222,10 @@ def main():
         print(trajectory_shape)
 
 
-    if args.view_npz: # view individual npz
+    if args.view_npz: # view original vector npz
         print('Here are some stats of the MineRL expert... ')
         for path in Path(os.path.join(path_npz, env_id)).rglob('*.npz'):
-            # print(path)
+            print(path)
             import pdb; pdb.set_trace()
             expert_trajectory = np.load(path, allow_pickle=True) #MineRL-envs
             for keys in expert_trajectory:
@@ -161,7 +238,16 @@ def main():
 
     if args.view_npz_final: # view combined npz
         print('Here are some stats of the MineRL expert... ')
-        expert_data = np.load(os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(args.traj_use)+'.npz'), allow_pickle=True) #Gym-envs
+        if args.view_vec:
+            expert_data = np.load(os.path.join(path_pkl, env_id[:-3].lower()+'_vector_'+str(args.traj_use)+'.npz'), allow_pickle=True) #Gym-envs
+        elif args.view_full:
+            if args.flatten_states:
+                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_flat_'+str(args.traj_use)+'.npz')
+            elif args.aggregate_states:
+                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_conv_'+str(args.traj_use)+'.npz')
+            else:
+                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(args.traj_use)+'.npz')
+        expert_data = np.load(path_expert, allow_pickle=True) #Gym-envs
 
         trajectory_max = {'reward': [], 'observation$vector': [], 'action$vector': []}
         trajectory_min = {'reward': [], 'observation$vector': [], 'action$vector': []}
