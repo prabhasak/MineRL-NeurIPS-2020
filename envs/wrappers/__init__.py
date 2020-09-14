@@ -6,6 +6,7 @@ from envs.wrappers.gray_scale_wrapper import MineRLGrayScale
 from envs.wrappers.observation_stack_wrapper import MineRLObservationStack
 from envs.wrappers.observation_wrapper import MineRLObservationWrapper
 from envs.wrappers.observation_wrapper import MineRLPOVWithVectorWrapper
+from envs.wrappers.move_axis_wrapper import MoveAxisWrapper
 from envs.wrappers.time_limit_wrapper import MineRLTimeLimitWrapper
 
 
@@ -14,6 +15,7 @@ def wrap(env, conv=False, discrete=False, num_actions=32, data_dir=None, num_sta
     env = MineRLTimeLimitWrapper(env)
     if conv:
         env = MineRLPOVWithVectorWrapper(env) # With Conv layers
+        env = MoveAxisWrapper(env, source=-1, destination=0)
     else:
         env = MineRLObservationWrapper(env) # Without Conv layers
     env = MineRLActionWrapper(env)
