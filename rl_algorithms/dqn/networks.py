@@ -186,12 +186,14 @@ class C51DuelingMLPConv(MLP, NoisyMLPHandler):
         """Get distribution for atoms."""
         action_size, atom_size = self.action_size, self.atom_size
 
-        x = super(C51DuelingMLPConv, self).forward(x)
+        # x = super(C51DuelingMLPConv, self).forward(x)
         
         # Conv layers
         for l in self.conv_layers:
             x = self.hidden_activation(l(x))
-            
+
+        x = super(C51DuelingMLPConv, self).forward(x)
+        
         adv_x = self.hidden_activation(self.advantage_hidden_layer(x))
         val_x = self.hidden_activation(self.value_hidden_layer(x))
 
