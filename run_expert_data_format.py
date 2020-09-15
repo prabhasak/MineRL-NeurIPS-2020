@@ -8,16 +8,17 @@ from pathlib import Path
 
 import gym
 import minerl
+from sklearn.neighbors import NearestNeighbors
 
 #Windows
-# path_pkl = 'C:/MineRL/medipixel/data/'
-# path_npy = 'C:/MineRL/data/32-means/'
-# path_npz = 'C:/MineRL/data/'
+path_pkl = 'C:/MineRL/medipixel/data/'
+path_npy = 'C:/MineRL/data/32-means/'
+path_npz = 'C:/MineRL/data/'
 
 #ecelbw002
-path_pkl = './data/'
-path_npy = './data/32-means/'
-path_npz = '/home/grads/p/prabhasa/MineRL2020/data'
+# path_pkl = './data/'
+# path_npy = './data/32-means/'
+# path_npz = '/home/grads/p/prabhasa/MineRL2020/data'
 
 warnings.filterwarnings("ignore", category=UserWarning, module='gym')
 
@@ -70,6 +71,15 @@ def MineRL_aggregate_state(state):
     num_elem = pov.shape[-3] * pov.shape[-2]
     vector_channel = np.tile(vector_scaled, num_elem // vector_scaled.shape[-1]).reshape(*pov.shape[:-1], -1)  # noqa
     return np.concatenate([pov, vector_channel], axis=-1)
+
+def reverse_action(env_id, num_actions, action):
+    kmeans_file = os.path.join(path_pkl, f'{num_actions}-means', f'{env_id}.npy')
+    kmeans = np.load(kmeans_file)
+    nearest_neighbors = NearestNeighbors(n_neighbors=1).fit(kmeans)
+
+    action = np.reshape(action, (1, 64))
+    distances, indices = nearest_neighbors.kneighbors(action)
+    return int(indices[0].item())
 
 def main():
     args = get_args()
@@ -138,10 +148,12 @@ def main():
                     current_state = MineRL_aggregate_state(items[0])
                     next_state = MineRL_aggregate_state(items[3])
 
+                action = reverse_action(env_id, 32, items[1]['vector'])
+
                 expert_data_npz['reward'].append(items[2])
                 expert_data_npz['observation$vector'].append(current_state)
-                expert_data_npz['action$vector'].append(items[1]['vector'])
-                expert_data_pkl.append([current_state, items[1]['vector'], items[2], next_state, items[4]])
+                expert_data_npz['action$vector'].append(action)
+                expert_data_pkl.append([current_state, action, items[2], next_state, items[4]])
 
             trajectory_count += 1
             print('file count: ', trajectory_count)
@@ -201,25 +213,7 @@ def main():
     if args.view_npy: # view npy
         print('Here are some stats of the MineRL expert... ')
         expert_data = np.load(os.path.join(path_npy, env_id+'.npy'), allow_pickle=True) #Gym-envs
-
-        trajectory_max = {'reward': [], 'observation$vector': [], 'action$vector': []}
-        trajectory_min = {'reward': [], 'observation$vector': [], 'action$vector': []}
-        trajectory_shape = {'reward': [], 'observation$vector': [], 'action$vector': []}
-        import pdb; pdb.set_trace()
         print(expert_data.shape)
-        for keys in expert_data:
-            print(keys)
-            for trajectory, trajectory_key in enumerate(expert_data[keys]):
-                import pdb; pdb.set_trace()
-                trajectory_max[keys].append(np.amax(trajectory_key.astype(int), axis=0))
-                trajectory_min[keys].append(np.amin(trajectory_key.astype(int), axis=0))
-                trajectory_shape[keys].append(len(expert_data[keys]))
-                if args.episodic:
-                    import pdb; pdb.set_trace()
-                    print(trajectory_max[:][trajectory],trajectory_min[:][trajectory], trajectory_shape[:][trajectory])
-        print(trajectory_max)
-        print(trajectory_min)
-        print(trajectory_shape)
 
 
     if args.view_npz: # view original vector npz

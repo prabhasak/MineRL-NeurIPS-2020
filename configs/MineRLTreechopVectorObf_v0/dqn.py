@@ -16,7 +16,7 @@ agent = dict(
         multiple_update=1,  # multiple learning updates
         train_freq=1,  # in openai baselines, train_freq = 4
         gradient_clip=10.0,  # dueling: 10.0
-        n_step=3,
+        n_step=10,
         w_n_step=1.0,
         w_q_reg=1e-7,
         per_alpha=0.6,  # openai baselines: 0.6
