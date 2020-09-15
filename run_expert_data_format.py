@@ -11,14 +11,14 @@ import minerl
 from sklearn.neighbors import NearestNeighbors
 
 #Windows
-path_pkl = 'C:/MineRL/medipixel/data/'
-path_npy = 'C:/MineRL/data/32-means/'
-path_npz = 'C:/MineRL/data/'
+# path_pkl = 'C:/MineRL/medipixel/data/'
+# path_npy = 'C:/MineRL/data/32-means/'
+# path_npz = 'C:/MineRL/data/'
 
 #ecelbw002
-# path_pkl = './data/'
-# path_npy = './data/32-means/'
-# path_npz = '/home/grads/p/prabhasa/MineRL2020/data'
+path_pkl = './data/'
+path_npy = './data/32-means/'
+path_npz = '/home/grads/p/prabhasa/MineRL2020/data'
 
 warnings.filterwarnings("ignore", category=UserWarning, module='gym')
 
@@ -38,6 +38,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', help='environment ID', type=str, default='MineRLTreechopVectorObf-v0', choices=env_list())
     parser.add_argument('--algo', help='RL Algorithm', default='sac', type=str, required=False, choices=algo_list)
+    parser.add_argument('--num-actions', help='Number of clusters for k-means', type=int, default=32)
 
     parser.add_argument('-conv-vec', '--convert-vec', help='Convert npz vector data into pkl', action='store_true')
     parser.add_argument('-conv-full', '--convert-full', help='Convert pov and vector npz data into pkl', action='store_true')
@@ -148,7 +149,7 @@ def main():
                     current_state = MineRL_aggregate_state(items[0])
                     next_state = MineRL_aggregate_state(items[3])
 
-                action = reverse_action(env_id, 32, items[1]['vector'])
+                action = reverse_action(env_id, args.num_actions, items[1]['vector'])
 
                 expert_data_npz['reward'].append(items[2])
                 expert_data_npz['observation$vector'].append(current_state)

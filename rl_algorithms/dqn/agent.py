@@ -123,8 +123,8 @@ class DQNAgent(Agent):
         self.curr_state = state
 
         # Added by PK: flatten next_state
-        # if 'MineRL' in self.env_info['name']:
-        #     state = self.MineRL_flatten_states(state)
+        if 'MineRL' in self.env_info['name']:
+            state = self.MineRL_flatten_states(state)
 
         # epsilon greedy policy
         if not self.args.test and self.epsilon > np.random.random():
@@ -160,8 +160,8 @@ class DQNAgent(Agent):
         next_state, reward, done, info = self.env.step(action)
 
         # Added by PK: flatten next_state
-        # if 'MineRL' in self.env_info['name']:
-        #     next_state = self.MineRL_flatten_states(next_state)
+        if 'MineRL' in self.env_info['name']:
+            next_state = self.MineRL_flatten_states(next_state)
 
         if not self.args.test:
             # if the last state is not a terminal state, store done as false
@@ -245,11 +245,9 @@ class DQNAgent(Agent):
 
         for self.i_episode in range(1, self.args.episode_num + 1):
             state = self.env.reset()
-            # Added by PK: flatten state
-            # if 'MineRL' in self.env_info['name']:
-            #     state = self.MineRL_flatten_states(state)
-            # print('state_shape: ', state.shape)
-            # print('state: ', state)
+            Added by PK: flatten state
+            if 'MineRL' in self.env_info['name']:
+                state = self.MineRL_flatten_states(state)
             self.episode_step = 0
             losses = list()
             done = False
@@ -260,9 +258,6 @@ class DQNAgent(Agent):
             while not done:
                 if self.args.render and self.i_episode >= self.args.render_after:
                     self.env.render()
-                action = self.select_action(state)
-                # print('action_shape: ', action.shape)
-                # print('action: ', action)
                 next_state, reward, done, _ = self.step(action)
                 self.total_step += 1
                 self.episode_step += 1
