@@ -143,7 +143,7 @@ class DQfDAgent(DQNAgent):
             state = self.env.reset()
             # Added by PK: flatten next_state
             if 'MineRL' in self.env_info['name']:
-                next_state = self.MineRL_flatten_states(next_state)
+                state = self.MineRL_flatten_states(state)
             self.episode_step = 0
             losses = list()
             done = False
