@@ -7,8 +7,8 @@ wandb*
 MUJOCO_LOG.TXT
 .coverage
 
-.pkl
-.log
+*.pkl
+*.log
 
 # build
 build

@@ -52,7 +52,7 @@ def parse_args() -> argparse.Namespace:
         "--load-from",
         type=str,
         default=None,
-        # default="./checkpoint/MineRLTreechopVectorObf-v0/DQNAgent/200909_130128/e678db5_ep_3.pt",
+        # default="./checkpoint/MineRLTreechopVectorObf-v0/DQfDAgent/200915_024742/571f207_ep_50.pt",
         help="load the saved model and optimizer at the beginning",
     )
     parser.add_argument(
@@ -115,7 +115,7 @@ def main():
     env_name = "MineRLTreechopVectorObf-v0"
     # env_name = "MineRLObtainDiamondVectorObf-v0"
     env = gym.make(env_name)
-    env = wrap(env, conv=True, discrete=True, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
+    env = wrap(env, conv=args.conv_layer, discrete=True, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
     env = env_utils.set_env(env, args)
 
     # set a random seed
