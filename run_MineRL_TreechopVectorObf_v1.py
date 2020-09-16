@@ -96,6 +96,12 @@ def parse_args() -> argparse.Namespace:
         help="indicate integration test",
     )
     parser.add_argument(
+        "--env", default="MineRLTreechopVectorObf-v0", help="env for filename purposes"
+    )
+    parser.add_argument(
+        "--algo", default="Rainbow-DQN", help="algo for filename purposes"
+    )
+    parser.add_argument(
         "-conv", "--conv-layer", action="store_true", help="if conv layer used"
     )
 
@@ -105,15 +111,21 @@ def parse_args() -> argparse.Namespace:
 def main():
     """Main."""
     args = parse_args()
+    filename = '-conv' if args.conv_layer else '-flat'
 
     # INITIALIZE WANDB
-    wandb.init(name='Rainbow-DQN-conv', project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
-    # wandb.init(name='Rainbow-DQN-conv', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
+    if args.demo_path is not None:
+        if args.demo_path[-6] == '_':
+            wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+        else:
+            wandb.init(name=args.algo+'-'+str(args.demo_path[-6:-4])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+    else:
+        wandb.init(name=args.algo+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+    # wandb.init(name='Rainbow-DQN-flat', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
     # INITIALIZE ENV
-    env_name = "MineRLTreechopVectorObf-v0"
-    # env_name = "MineRLObtainDiamondVectorObf-v0"
+    env_name = args.env
     env = gym.make(env_name)
     env = wrap(env, conv=args.conv_layer, discrete=True, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
     env = env_utils.set_env(env, args)
