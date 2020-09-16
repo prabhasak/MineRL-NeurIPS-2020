@@ -49,7 +49,7 @@ class DQNLearner(Learner):
         Learner.__init__(self, args, env_info, hyper_params, log_cfg, device)
         self.backbone_cfg = backbone
         self.head_cfg = head
-        if 'MineRL' in self.env_info.name: # Added by PK
+        if (('MineRL' in self.env_info.name) and (not self.env_info['conv_layer'])): # Added by PK
             self.env_info.observation_space = np.zeros((np.prod(self.env_info.observation_space[0].shape)+self.env_info.observation_space[1].shape[0],))
         self.head_cfg.configs.state_size = self.env_info.observation_space.shape
         self.head_cfg.configs.output_size = self.env_info.action_space.n

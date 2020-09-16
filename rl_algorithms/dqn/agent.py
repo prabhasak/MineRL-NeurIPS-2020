@@ -123,13 +123,13 @@ class DQNAgent(Agent):
         self.curr_state = state
 
         # Added by PK: flatten next_state
-        if 'MineRL' in self.env_info['name']:
+        if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
             state = self.MineRL_flatten_states(state)
 
         # epsilon greedy policy
         if not self.args.test and self.epsilon > np.random.random():
             selected_action = np.array(self.env.action_space.sample())
-        else:
+        else:            
             with torch.no_grad():
                 state = self._preprocess_state(state)
                 selected_action = self.learner.dqn(state).argmax()
@@ -160,7 +160,7 @@ class DQNAgent(Agent):
         next_state, reward, done, info = self.env.step(action)
 
         # Added by PK: flatten next_state
-        if 'MineRL' in self.env_info['name']:
+        if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
             next_state = self.MineRL_flatten_states(next_state)
 
         if not self.args.test:
@@ -169,7 +169,6 @@ class DQNAgent(Agent):
                 False if self.episode_step == self.args.max_episode_steps else done
             )
 
-            # PK np.expand_dims(action, axis=0).astype(int) NOT needed anymore!
             transition = (self.curr_state, action, reward, next_state, done_bool)
             self._add_transition_to_memory(transition)
 
@@ -246,7 +245,7 @@ class DQNAgent(Agent):
         for self.i_episode in range(1, self.args.episode_num + 1):
             state = self.env.reset()
             # Added by PK: flatten state
-            if 'MineRL' in self.env_info['name']:
+            if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
                 state = self.MineRL_flatten_states(state)
             self.episode_step = 0
             losses = list()
@@ -258,6 +257,7 @@ class DQNAgent(Agent):
             while not done:
                 if self.args.render and self.i_episode >= self.args.render_after:
                     self.env.render()
+                action = self.select_action(state)
                 next_state, reward, done, _ = self.step(action)
                 self.total_step += 1
                 self.episode_step += 1

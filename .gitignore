@@ -1,11 +1,14 @@
 __pycache__
 wandb*
-checkpoint
 .idea
 .mypy_cache
+.ipynb_checkpoints
 .vscode
 MUJOCO_LOG.TXT
 .coverage
+
+.pkl
+.log
 
 # build
 build
@@ -14,6 +17,10 @@ dist
 
 # data
 data/distillation_buffer
+
+/checkpoint/*
+/data/*
+/.ipynb_checkpoints
 
 #readme
 README.md

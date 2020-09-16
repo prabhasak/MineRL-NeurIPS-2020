@@ -4,14 +4,16 @@
 - Authors: Prabhasa Kalkur, Kishan P B 
 - Contact: prabhasa.94@gmail.com
 
-Config file for algo: --cfg-path
-Expert demo for fD algos: --demo-path (system-dependent)
-Env name: env_name
+Config file for algo: --cfg-path (algo-dependent)
+Pretrain or test model: --load-from (run-dependent)
+Expert demo for fD algos: --demo-path (trajectory-dependent)
 WANDB logs: wandb.init (system-dependent)
+Env name: env_name (env-dependent)
 """
 
 import argparse
 import datetime
+import warnings
 import minerl
 import os
 
@@ -29,6 +31,8 @@ from xvfbwrapper import Xvfb # only for ecelbw00202
 import wandb
 # wandb.config["more"] = "custom"
 
+warnings.filterwarnings("ignore", category=UserWarning, module='gym')
+
 def parse_args() -> argparse.Namespace:
     # configurations
     parser = argparse.ArgumentParser(description="Pytorch RL algorithms")
@@ -38,7 +42,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--cfg-path",
         type=str,
-        default="./configs/MineRLTreechopVectorObf_v0/dqn_conv.py", # PARAM 1: ALGORITHM
+        default="./configs/MineRLTreechopVectorObf_v0/dqn_conv.py",
         help="config path",
     )
     parser.add_argument(
@@ -48,10 +52,11 @@ def parse_args() -> argparse.Namespace:
         "--load-from",
         type=str,
         default=None,
+        # default="./checkpoint/MineRLTreechopVectorObf-v0/DQNAgent/200909_130128/e678db5_ep_3.pt",
         help="load the saved model and optimizer at the beginning",
     )
     parser.add_argument(
-        "--off-render", dest="render", action="store_true", help="turn off rendering"
+        "--off-render", dest="render", action="store_false", help="turn off rendering"
     )
     parser.add_argument(
         "--render-after",
@@ -80,9 +85,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--demo-path",
         type=str,
-        # PARAM 2: FOR FD ALGOS
-        #default = "./data/minerltreechopvectorobf_5.pkl",
-	default = None,
+        default=None,
+        #default = "./data/minerltreechopvectorobf_conv_5.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -90,6 +94,9 @@ def parse_args() -> argparse.Namespace:
         dest="integration_test",
         action="store_true",
         help="indicate integration test",
+    )
+    parser.add_argument(
+        "-conv", "--conv-layer", action="store_true", help="if conv layer used"
     )
 
     return parser.parse_args()
@@ -99,13 +106,12 @@ def main():
     """Main."""
     args = parse_args()
 
-    # PARAM 3: INITILAIZE WANDB
-    wandb.init(name='dqn_mtc_obf_5', project="lensminerl_treechop_obf", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='september', reinit=True, sync_tensorboard=True) # ecelbw00202
-    # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/GitHub/MineRL-NeurIPS-2020', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally cloned repo
-    # wandb.init(name='dqn_mtc_obf_1', project="wandb_on_minerl", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
+    # INITIALIZE WANDB
+    wandb.init(name='Rainbow-DQN-conv', project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+    # wandb.init(name='Rainbow-DQN-conv', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
-    # PARAM 3: env initialization and wrappers
+    # INITIALIZE ENV
     env_name = "MineRLTreechopVectorObf-v0"
     # env_name = "MineRLObtainDiamondVectorObf-v0"
     env = gym.make(env_name)
@@ -125,12 +131,12 @@ def main():
     if args.integration_test:
         cfg = common_utils.set_cfg_for_intergration_test(cfg)
 
-    # PK: Added np.array to obs_space and changed is_discrete
     cfg.agent.env_info = dict(
         name=env_name,
         observation_space=env.observation_space,
         action_space=env.action_space,
-        is_discrete=True,  # PARAM 4.2: FOR DISCRETE ACTION SPACES
+        is_discrete=True,  # PK: FOR DISCRETE ACTION SPACES
+        conv_layer=args.conv_layer, # PK: IF CONV LAYER USED
     )
     cfg.agent.log_cfg = dict(agent=cfg.agent.type, curr_time=curr_time)
     build_args = dict(args=args, env=env)
@@ -145,7 +151,4 @@ def main():
 
 
 if __name__ == "__main__":
-#     vdisplay = Xvfb(width=1280, height=740, colordepth=16)
-#     vdisplay.start()
     main()
-#     vdisplay.stop()
