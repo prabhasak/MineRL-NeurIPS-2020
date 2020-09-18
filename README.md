@@ -28,7 +28,7 @@ Usage - For the competition
 -------------
 ``run.py`` is the entrypoint script for Round 1 (**WIP**)
 
-``python run.py --algo DQfD --cfg-path ./configs/MineRL_Treechop_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_64_flat_20.pkl" --seed 42 -conv``
+``python run.py --algo DQfD --cfg-path ./configs/MineRL_TreechopVectorObf_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_64_flat_20.pkl" --seed 42 -conv``
 
 Prerequisites - For local usage (LeNS lab systems)
 -------------
@@ -97,8 +97,8 @@ Usage
 2. To sync wandb logging, remember to ``wandb login`` and ``wandb on``. Local logging enabled by default with ``--log``
 3. Choose if CNN to be used with ``-conv`` (WIP). Discrete actions enabled by default with ``--is-discrete``
 
-**RL:** ``python run_MineRL_Treechop_v0.py --env MineRLTreechopVectorObf-v0 --algo Rainbow-DQN --cfg-path ./configs/MineRL_Treechop_v0/dqn.py --num-actions 64 --seed 42``
+**RL:** ``python run_MineRL_TreechopVectorObf_v0.py --env MineRLTreechopVectorObf-v0 --algo Rainbow-DQN --cfg-path ./configs/MineRL_TreechopVectorObf_v0/dqn.py --num-actions 64 --seed 42``
 
-**fD:** ``python run_MineRL_Treechop_v0.py --env MineRLTreechopVectorObf-v0 --algo DQfD --cfg-path ./configs/MineRL_Treechop_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_32_flat_20.pkl" --seed 42``
+**fD:** ``python run_MineRL_TreechopVectorObf_v0.py --env MineRLTreechopVectorObf-v0 --algo DQfD --cfg-path ./configs/MineRL_TreechopVectorObf_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_32_flat_20.pkl" --seed 42``
 
 3. **Basic envs:** **WIP**
