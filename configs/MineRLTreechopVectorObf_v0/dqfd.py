@@ -12,7 +12,7 @@ agent = dict(
         tau=5e-3,
         buffer_size=int(1e5),  # openai baselines: int(1e4)
         batch_size=128,  # openai baselines: 32
-        update_starts_from=int(2e3),  # openai baselines: int(1e4)
+        update_starts_from=int(1e3),  # openai baselines: int(1e4)
         multiple_update=1,  # multiple learning updates
         train_freq=8,  # in openai baselines, train_freq = 4
         gradient_clip=0.5,  # dueling: 10.0
@@ -33,7 +33,7 @@ agent = dict(
         # Epsilon Greedy
         max_epsilon=1.0,
         min_epsilon=0.01,  # openai baselines: 0.01
-        epsilon_decay=1e-6,  # openai baselines: 1e-7 / 1e-1
+        epsilon_decay=5e-6,  # openai baselines: 1e-7 / 1e-1
     ),
     learner_cfg=dict(
         type="DQfDLearner",

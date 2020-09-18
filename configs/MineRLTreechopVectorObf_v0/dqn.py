@@ -26,7 +26,7 @@ agent = dict(
         # Epsilon Greedy
         max_epsilon=1.0,
         min_epsilon=0.01,  # openai baselines: 0.01
-        epsilon_decay=1e-6,  # openai baselines: 1e-7 / 1e-1
+        epsilon_decay=5e-6,  # openai baselines: 1e-7 / 1e-1
     ),
     learner_cfg=dict(
         type="DQNLearner",
