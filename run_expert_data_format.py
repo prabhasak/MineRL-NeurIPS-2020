@@ -37,7 +37,6 @@ def env_list():
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', help='environment ID', type=str, default='MineRLTreechopVectorObf-v0', choices=env_list())
-    parser.add_argument('--algo', help='RL Algorithm', default='sac', type=str, required=False, choices=algo_list)
     parser.add_argument('--num-actions', help='Number of clusters for k-means', type=int, default=32)
 
     parser.add_argument('-conv-vec', '--convert-vec', help='Convert npz vector data into pkl', action='store_true')
@@ -55,7 +54,7 @@ def get_args():
     parser.add_argument('--view-npz-final', help='View npz file (only MineRL envs)', action='store_true')
 
     parser.add_argument('--episodic', help='Episodic data ', action='store_true')
-    parser.add_argument('--seed', help='Random generator seed', type=int, default=0)
+    parser.add_argument('--seed', help='Random generator seed', type=int, default=42)
     args = parser.parse_args()
     return args
 
@@ -85,7 +84,6 @@ def reverse_action(env_id, num_actions, action):
 def main():
     args = get_args()
     env_id = args.env
-    # algo = args.algo
     # exp_id = args.exp_id
 
     # Convert vector component of expert data into pkl format
@@ -165,11 +163,11 @@ def main():
         # print(trajectory_count) # sanity check if all files were parsed
 
         if args.flatten_states:
-            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_flat_'+str(trajectory_count))
-            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_flat_'+str(trajectory_count)))
+            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_flat_'+str(trajectory_count))
+            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_flat_'+str(trajectory_count)))
         elif args.aggregate_states:
-            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_conv_'+str(trajectory_count))
-            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_conv_'+str(trajectory_count)))
+            save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_conv_'+str(trajectory_count))
+            save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_conv_'+str(trajectory_count)))
         else:
             save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(trajectory_count))
             save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(trajectory_count)))
@@ -193,9 +191,9 @@ def main():
                 path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_vector_'+str(args.traj_use)))
             elif args.view_full:
                 if args.flatten_states:
-                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_flat_'+str(args.traj_use)))
+                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_flat_'+str(args.traj_use)))
                 elif args.aggregate_states:
-                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_conv_'+str(args.traj_use)))
+                    path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_conv_'+str(args.traj_use)))
                 else:
                     path_expert = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_'+str(args.traj_use)))
             with open(path_expert, 'rb') as handle:
@@ -237,29 +235,30 @@ def main():
             expert_data = np.load(os.path.join(path_pkl, env_id[:-3].lower()+'_vector_'+str(args.traj_use)+'.npz'), allow_pickle=True) #Gym-envs
         elif args.view_full:
             if args.flatten_states:
-                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_flat_'+str(args.traj_use)+'.npz')
+                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_flat_'+str(args.traj_use)+'.npz')
             elif args.aggregate_states:
-                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_conv_'+str(args.traj_use)+'.npz')
+                path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_conv_'+str(args.traj_use)+'.npz')
             else:
                 path_expert = os.path.join(path_pkl, env_id[:-3].lower()+'_'+str(args.traj_use)+'.npz')
         expert_data = np.load(path_expert, allow_pickle=True) #Gym-envs
 
-        trajectory_max = {'reward': [], 'observation$vector': [], 'action$vector': []}
-        trajectory_min = {'reward': [], 'observation$vector': [], 'action$vector': []}
-        trajectory_shape = {'reward': [], 'observation$vector': [], 'action$vector': []}
-        for keys in expert_data:
-            print(keys)
-            for trajectory, trajectory_key in enumerate(expert_data[keys]):
-                import pdb; pdb.set_trace()
-                trajectory_max[keys].append(np.amax(trajectory_key.astype(int), axis=0))
-                trajectory_min[keys].append(np.amin(trajectory_key.astype(int), axis=0))
-                trajectory_shape[keys].append(len(expert_data[keys]))
-                if args.episodic:
-                    import pdb; pdb.set_trace()
-                    print(trajectory_max[:][trajectory], trajectory_min[:][trajectory], trajectory_shape[:][trajectory])
-        print(trajectory_max)
-        print(trajectory_min)
-        print(trajectory_shape)
+        # Episodic view of expert data - WIP
+        # trajectory_max = {'reward': [], 'observation$vector': [], 'action$vector': []}
+        # trajectory_min = {'reward': [], 'observation$vector': [], 'action$vector': []}
+        # trajectory_shape = {'reward': [], 'observation$vector': [], 'action$vector': []}
+        # for keys in expert_data:
+        #     print(keys)
+        #     for trajectory, trajectory_key in enumerate(expert_data[keys]):
+        #         import pdb; pdb.set_trace()
+        #         trajectory_max[keys].append(np.amax(trajectory_key.astype(int), axis=0))
+        #         trajectory_min[keys].append(np.amin(trajectory_key.astype(int), axis=0))
+        #         trajectory_shape[keys].append(len(expert_data[keys]))
+        #         if args.episodic:
+        #             import pdb; pdb.set_trace()
+        #             print(trajectory_max[:][trajectory], trajectory_min[:][trajectory], trajectory_shape[:][trajectory])
+        # print(trajectory_max)
+        # print(trajectory_min)
+        # print(trajectory_shape)
 
 if __name__ == '__main__':
     main()

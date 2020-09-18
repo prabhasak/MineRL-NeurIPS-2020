@@ -4,11 +4,11 @@ MineRL-NeurIPS-2020
 
 **Framework, language:** PyTorch 1.3.1, Python 3.7
 
-**Idea**: pick {env, algo} pair -> train RL or train IL (if expert data available) algo on MineRL envs
+**General Idea**: pick {env, algo} pair -> train to solve MineRL competition envs with RL or demonstration-based (IL, fD) algorithms
 
-Prerequisites
+Prerequisites - For the competition
 -------------
-For standard installation (**non-LeNS lab systems**):
+Standard installation (**non-LeNS lab systems**):
 
 ```
 # create virtual environment (optional)
@@ -24,8 +24,14 @@ make dep --ignore-errors # ignore certifi error
 pip install minerl
 ```
 
-For the competition (**LeNS lab systems**):
+Usage - For the competition
+-------------
+``run.py`` is the entrypoint script for Round 1 (**WIP**)
 
+``python run.py --algo DQfD --cfg-path ./configs/MineRL_Treechop_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_64_flat_20.pkl" --seed 42 -conv``
+
+Prerequisites - For local usage (LeNS lab systems)
+-------------
 **Step 1:** Enable X11 forwarding
 1. [Requirements](http://systems.eecs.tufts.edu/x11-forwarding/) for local machine. Verify with ``xeyes`` command on remote machine
 2. Follow Sapana's [lab usage doc](https://docs.google.com/document/d/1oYzmTFAyv6qztkUMDFd0SW0w46ms7DAr9g-VIvIZIcQ/edit?usp=sharing) and ssh into your lab system
@@ -69,12 +75,30 @@ Linux: ``export MINERL_DATA_ROOT="your/local/path"``
 
 Usage
 -------------
-**Convert to discrete action space:** ``python run_k_means.py --env 'MineRLTreechopVectorObf-v0' --num-actions 32``
+**Convert to discrete action space:** ``python run_k_means.py --env 'MineRLTreechopVectorObf-v0' --num-actions 64``
+
+**Generate expert data:** Download the MineRL dataset and change the paths (lines 19-21). Some argument options: \
+1. ``conv-vec``: Use continuous actions and only vector component of observations (not recommended)
+2. ``conv-full``: Use discrete actions (``num-actions``) and both pov, vector of observations
+3a. ``conv-full`` and ``flatten``: Flatten pov and append to vector to make state space \
+3b. ``conv-full`` and ``aggregate``: Append vector as fourth channel of pov to make state space (pass through CNN) \
+
+``python run_expert_data_format.py -conv-full -flatten --num-actions 64 --traj-use 10 --seed 42``
+
+**View expert data:**
+1. ``view-npz`` and ``view-pkl``: Available in both .npz and .pkl formats
+2. Use [pdb commands](https://docs.python.org/3/library/pdb.html) to step through the data: ``n`` to view the next step, and ``q`` to quit the program
+
+``python run_expert_data_format.py --view-full --view-pkl -flatten --num-actions 64 --traj-use 10 --seed 42``
 
 **Competition envs:**
 
-1. **RL:** ``python run_MineRL_Treechop_v0.py --cfg-path ./configs/MineRL_Treechop_v0/sac.py --seed 42 --off-render`` (prefix ``xvfb-run`` if running on headless system)
+1. Prefix ``xvfb-run`` if running on a headless system
+2. To sync wandb logging, remember to ``wandb login`` and ``wandb on``. Local logging enabled by default with ``--log``
+3. Choose if CNN to be used with ``-conv`` (WIP). Discrete actions enabled by default with ``--is-discrete``
 
-2. **fD:** **WIP**
+**RL:** ``python run_MineRL_Treechop_v0.py --env MineRLTreechopVectorObf-v0 --algo Rainbow-DQN --cfg-path ./configs/MineRL_Treechop_v0/dqn.py --num-actions 64 --seed 42``
+
+**fD:** ``python run_MineRL_Treechop_v0.py --env MineRLTreechopVectorObf-v0 --algo DQfD --cfg-path ./configs/MineRL_Treechop_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_32_flat_20.pkl" --seed 42``
 
 3. **Basic envs:** **WIP**

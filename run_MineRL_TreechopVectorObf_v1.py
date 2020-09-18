@@ -86,7 +86,7 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         default=None,
-        #default = "./data/minerltreechopvectorobf_conv_5.pkl",
+        #default = "./data/minerltreechopvectorobf_disc_32_conv_5.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -96,10 +96,16 @@ def parse_args() -> argparse.Namespace:
         help="indicate integration test",
     )
     parser.add_argument(
-        "--env", default="MineRLTreechopVectorObf-v0", help="env for filename purposes"
+        "--is-discrete", action="store_false", default=True, help="if discrete actions used (do nto change!)"
     )
     parser.add_argument(
-        "--algo", default="Rainbow-DQN", help="algo for filename purposes"
+        "--env", type=str, default="MineRLTreechopVectorObf-v0", help="env for filename purposes"
+    )
+    parser.add_argument(
+        "--algo", type=str, default="Rainbow-DQN", help="algo for filename purposes"
+    )
+    parser.add_argument(
+        "--num-actions", type=int, default=32, help="discrete actions used"
     )
     parser.add_argument(
         "-conv", "--conv-layer", action="store_true", help="if conv layer used"
@@ -111,7 +117,7 @@ def parse_args() -> argparse.Namespace:
 def main():
     """Main."""
     args = parse_args()
-    filename = '-conv' if args.conv_layer else '-flat'
+    filename = '-conv-'+str(args.num_actions) if args.conv_layer else '-flat-'+str(args.num_actions)
 
     # INITIALIZE WANDB
     if args.demo_path is not None:
@@ -127,7 +133,7 @@ def main():
     # INITIALIZE ENV
     env_name = args.env
     env = gym.make(env_name)
-    env = wrap(env, conv=args.conv_layer, discrete=True, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
+    env = wrap(env, conv=args.conv_layer, discrete=args.is_discrete, num_actions=args.num_actions, seed=args.seed) # data_dir=None as MINERL_DATA_ROOT has been set
     env = env_utils.set_env(env, args)
 
     # set a random seed
@@ -147,7 +153,7 @@ def main():
         name=env_name,
         observation_space=env.observation_space,
         action_space=env.action_space,
-        is_discrete=True,  # PK: FOR DISCRETE ACTION SPACES
+        is_discrete=args.is_discrete,  # PK: FOR DISCRETE ACTION SPACES
         conv_layer=args.conv_layer, # PK: IF CONV LAYER USED
     )
     cfg.agent.log_cfg = dict(agent=cfg.agent.type, curr_time=curr_time)

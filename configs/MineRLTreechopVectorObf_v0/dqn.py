@@ -26,7 +26,7 @@ agent = dict(
         # Epsilon Greedy
         max_epsilon=1.0,
         min_epsilon=0.01,  # openai baselines: 0.01
-        epsilon_decay=7.5e-6,  # openai baselines: 1e-7 / 1e-1
+        epsilon_decay=1e-6,  # openai baselines: 1e-7 / 1e-1
     ),
     learner_cfg=dict(
         type="DQNLearner",
@@ -36,9 +36,9 @@ agent = dict(
             configs=dict(
                 hidden_sizes=[128, 64],
                 use_noisy_net=False,
-                v_min=-300,
-                v_max=300,
-                atom_size=1530,
+                v_min=-10,
+                v_max=10,
+                atom_size=100,
                 output_activation=identity,
             ),
         ),
