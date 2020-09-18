@@ -45,7 +45,7 @@ agent = dict(
                 use_noisy_net=False,
                 v_min=-10,
                 v_max=10,
-                atom_size=100,
+                atom_size=200,
                 output_activation=identity,
             ),
         ),

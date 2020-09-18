@@ -28,7 +28,7 @@ Usage - For the competition
 -------------
 ``run.py`` is the entrypoint script for Round 1 (**WIP**)
 
-``python run.py --algo DQfD --cfg-path ./configs/MineRL_TreechopVectorObf_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_64_flat_20.pkl" --seed 42 -conv``
+``python run.py --algo DQfD --cfg-path ./configs/MineRLTreechopVectorObf_v0/dqfd.py --demo-path "./data/minerltreechopvectorobf_disc_64_flat_20.pkl" --seed 42 -conv``
 
 Prerequisites - For local usage (LeNS lab systems)
 -------------
