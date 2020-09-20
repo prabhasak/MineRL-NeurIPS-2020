@@ -111,6 +111,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-conv", "--conv-layer", action="store_true", help="if conv layer used"
     )
+    parser.add_argument(
+        "-wandb", "--wandb-log", action="store_true", help="For W&B logging"
+    )
 
     return parser.parse_args()
 
@@ -121,7 +124,7 @@ def main():
     filename = '-conv-'+str(args.num_actions) if args.conv_layer else '-flat-'+str(args.num_actions)
 
     # INITIALIZE WANDB
-    if args.demo_path is not None:
+    if ((args.demo_path is not None) and (args.wandb_log)):
         if args.demo_path[-6] == '_':
             wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
         else:
@@ -150,11 +153,16 @@ def main():
     if args.integration_test:
         cfg = common_utils.set_cfg_for_intergration_test(cfg)
 
+    if args.is_discrete: # PK: FOR DISCRETE ACTION SPACES
+        observation_space = np.array(env.observation_space)
+    else:
+        observation_space = env.observation_space
+
     cfg.agent.env_info = dict(
         name=env_name,
-        observation_space=np.array(env.observation_space), # PK: FOR DISCRETE ACTION SPACES
+        observation_space=observation_space, 
         action_space=env.action_space,
-        is_discrete=args.is_discrete,  # PK: FOR DISCRETE ACTION SPACES
+        is_discrete=args.is_discrete,
         conv_layer=args.conv_layer, # PK: IF CONV LAYER USED
     )
     cfg.agent.log_cfg = dict(agent=cfg.agent.type, curr_time=curr_time)
@@ -166,7 +174,8 @@ def main():
     else:
         agent.test()
 
-    wandb.join()
+    if args.wandb_log:
+        wandb.join()
 
 
 if __name__ == "__main__":

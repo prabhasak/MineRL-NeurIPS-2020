@@ -149,11 +149,16 @@ def main():
     if args.integration_test:
         cfg = common_utils.set_cfg_for_intergration_test(cfg)
 
+    if args.is_discrete: # PK: FOR DISCRETE ACTION SPACES
+        observation_space = np.array(env.observation_space)
+    else:
+        observation_space = env.observation_space
+
     cfg.agent.env_info = dict(
         name=env_name,
-        observation_space=env.observation_space,
+        observation_space=observation_space,
         action_space=env.action_space,
-        is_discrete=args.is_discrete,  # PK: FOR DISCRETE ACTION SPACES
+        is_discrete=args.is_discrete,
         conv_layer=args.conv_layer, # PK: IF CONV LAYER USED
     )
     cfg.agent.log_cfg = dict(agent=cfg.agent.type, curr_time=curr_time)

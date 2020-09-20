@@ -18,7 +18,7 @@ dist
 # data
 data/distillation_buffer
 
-/checkpoint/*
+# /checkpoint/*
 /data/*
 /.ipynb_checkpoints
 
