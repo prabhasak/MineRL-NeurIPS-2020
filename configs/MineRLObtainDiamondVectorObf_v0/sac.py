@@ -8,7 +8,7 @@ from rl_algorithms.common.helper_functions import identity
 agent = dict(
     type="SACAgent",
     hyper_params=dict(
-        gamma=0.99,
+        gamma=0.9998,
         tau=5e-3,
         buffer_size=int(1e5),
         batch_size=128,

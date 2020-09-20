@@ -8,7 +8,7 @@ from rl_algorithms.common.helper_functions import identity
 agent = dict(
     type="DQfDAgent",
     hyper_params=dict(
-        gamma=0.99,
+        gamma=0.995,
         tau=5e-3,
         buffer_size=int(1e5),  # openai baselines: int(1e4)
         batch_size=128,  # openai baselines: 32
