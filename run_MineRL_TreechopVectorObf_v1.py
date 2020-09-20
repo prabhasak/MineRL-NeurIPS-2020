@@ -86,7 +86,7 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         default=None,
-        #default = "./data/minerltreechopvectorobf_disc_32_conv_5.pkl",
+        #default = "./data/minerlobtaindiamondvectorobf_disc_64_flat_20.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -110,7 +110,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-conv", "--conv-layer", action="store_true", help="if conv layer used"
     )
-
+    
     return parser.parse_args()
 
 
@@ -119,14 +119,19 @@ def main():
     args = parse_args()
     filename = '-conv-'+str(args.num_actions) if args.conv_layer else '-flat-'+str(args.num_actions)
 
+    if args.env == "MineRLObtainDiamondVectorObf-v0":
+        group = 'mod_obf_sep'
+    elif args.env == "MineRLTreechopVectorObf-v0":
+        group = 'mtc_obf_sep'
+
     # INITIALIZE WANDB
-    if args.demo_path is not None:
+    if ((args.demo_path is not None) and (args.log)):
         if args.demo_path[-6] == '_':
-            wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+            wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
         else:
-            wandb.init(name=args.algo+'-'+str(args.demo_path[-6:-4])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+            wandb.init(name=args.algo+'-'+str(args.demo_path[-6:-4])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
     else:
-        wandb.init(name=args.algo+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+        wandb.init(name=args.algo+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
     # wandb.init(name='Rainbow-DQN-flat', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
@@ -170,8 +175,8 @@ def main():
     else:
         agent.test()
 
-    wandb.join()
-
+    if args.log:
+        wandb.join()
 
 if __name__ == "__main__":
     main()

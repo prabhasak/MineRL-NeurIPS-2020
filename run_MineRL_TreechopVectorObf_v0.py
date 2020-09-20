@@ -43,7 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--cfg-path",
         type=str,
-        default="./configs/MineRLTreechopVectorObf_v0/dqfd.py",
+        default="./configs/MineRLObtainDiamondVectorObf_v0/dqfd.py",
         help="config path",
     )
     parser.add_argument(
@@ -87,7 +87,7 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         default=None,
-        # default = "./data/minerltreechopvectorobf_disc_32_flat_5.pkl",
+        # default = "./data/minerlobtaindiamondvectorobf_disc_64_flat_20.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -100,7 +100,7 @@ def parse_args() -> argparse.Namespace:
         "--is-discrete", action="store_false", default=True, help="if discrete actions used (do nto change!)"
     )
     parser.add_argument(
-        "--env", type=str, default="MineRLTreechopVectorObf-v0", help="env for filename purposes"
+        "--env", type=str, default="MineRLObtainDiamondVectorObf-v0", help="env for filename purposes"
     )
     parser.add_argument(
         "--algo", type=str, default="DQfD", help="algo for filename purposes"
@@ -111,9 +111,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-conv", "--conv-layer", action="store_true", help="if conv layer used"
     )
-    parser.add_argument(
-        "-wandb", "--wandb-log", action="store_true", help="For W&B logging"
-    )
 
     return parser.parse_args()
 
@@ -123,14 +120,19 @@ def main():
     args = parse_args()
     filename = '-conv-'+str(args.num_actions) if args.conv_layer else '-flat-'+str(args.num_actions)
 
+    if args.env == "MineRLObtainDiamondVectorObf-v0":
+        group = 'mod_obf_sep'
+    elif args.env == "MineRLTreechopVectorObf-v0":
+        group = 'mtc_obf_sep'
+
     # INITIALIZE WANDB
-    if ((args.demo_path is not None) and (args.wandb_log)):
+    if ((args.demo_path is not None) and (args.log)):
         if args.demo_path[-6] == '_':
-            wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+            wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
         else:
-            wandb.init(name=args.algo+'-'+str(args.demo_path[-6:-4])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+            wandb.init(name=args.algo+'-'+str(args.demo_path[-6:-4])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
     else:
-        wandb.init(name=args.algo+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group='mtc_obf_sep', reinit=True, sync_tensorboard=True) # ecelbw00202
+        wandb.init(name=args.algo+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
     # wandb.init(name='Rainbow-DQN-flat', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
     # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
@@ -174,7 +176,7 @@ def main():
     else:
         agent.test()
 
-    if args.wandb_log:
+    if args.log:
         wandb.join()
 
 

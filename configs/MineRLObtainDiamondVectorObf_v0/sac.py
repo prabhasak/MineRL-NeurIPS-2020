@@ -1,4 +1,4 @@
-"""Config for SAC with Behavior Cloning on LunarLanderContinuous-v2.
+"""Config for SAC on MineRLTreechop-v0.
 
 - Author: Kyunghwan Kim
 - Contact: kh.kim@medipixel.io
@@ -6,31 +6,23 @@
 from rl_algorithms.common.helper_functions import identity
 
 agent = dict(
-    type="BCSACAgent",
+    type="SACAgent",
     hyper_params=dict(
         gamma=0.99,
         tau=5e-3,
-        buffer_size=int(1e6),
-        batch_size=512,
-        initial_random_action=int(1e4),
+        buffer_size=int(1e5),
+        batch_size=128,
+        initial_random_action=int(5e3),
         multiple_update=1,  # multiple learning updates
         policy_update_freq=2,
         w_entropy=1e-3,
-        w_mean_reg=1e-3,
-        w_std_reg=1e-3,
+        w_mean_reg=0.0,
+        w_std_reg=0.0,
         w_pre_activation_reg=0.0,
         auto_entropy_tuning=True,
-        # BC
-        demo_batch_size=64,
-        lambda1=1e-3,
-        # HER
-        use_her=False,
-        her=dict(type="LunarLanderContinuousHER",),
-        success_score=250.0,
-        desired_states_from_demo=True,
     ),
     learner_cfg=dict(
-        type="BCSACLearner",
+        type="SACLearner",
         backbone=dict(actor=dict(), critic_vf=dict(), critic_qf=dict()),
         head=dict(
             actor=dict(
