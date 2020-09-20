@@ -117,23 +117,26 @@ def parse_args() -> argparse.Namespace:
 def main():
     """Main."""
     args = parse_args()
-    filename = '-conv-'+str(args.num_actions) if args.conv_layer else '-flat-'+str(args.num_actions)
+
+    # INITIALIZE WANDB
+    wandb_filename = '-conv-'+str(args.num_actions) if args.conv_layer else '-flat-'+str(args.num_actions)
+    if args.demo_path is not None:
+        if args.demo_path[-6] == '_':
+            log_filename = args.algo+'-'+str(args.demo_path[-5])+wandb_filename
+        else:
+            log_filename = args.algo+'-'+str(args.demo_path[-6:-4])+wandb_filename
+    else:
+            log_filename = args.algo+wandb_filename
 
     if args.env == "MineRLObtainDiamondVectorObf-v0":
         group = 'mod_obf_sep'
     elif args.env == "MineRLTreechopVectorObf-v0":
         group = 'mtc_obf_sep'
 
-    # INITIALIZE WANDB
-    if ((args.demo_path is not None) and (args.log)):
-        if args.demo_path[-6] == '_':
-            wandb.init(name=args.algo+'-'+str(args.demo_path[-5])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
-        else:
-            wandb.init(name=args.algo+'-'+str(args.demo_path[-6:-4])+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
-    else:
-        wandb.init(name=args.algo+filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
-    # wandb.init(name='Rainbow-DQN-flat', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
-    # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
+    if args.log:
+        wandb.init(name=log_filename, project="lensminerl", dir='/home/grads/p/prabhasa/MineRL2020/medipixel', group=group, reinit=True, sync_tensorboard=True) # ecelbw00202
+        # wandb.init(name='Rainbow-DQN-flat', project="minerlpk", dir='C:/MineRL/medipixel', group='dry_run', reinit=True, sync_tensorboard=True) # PK laptop: locally run code
+        # wandb.tensorboard.patch(tensorboardX=True, pytorch=True)
 
     # INITIALIZE ENV
     env_name = args.env
