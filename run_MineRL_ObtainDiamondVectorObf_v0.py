@@ -53,6 +53,7 @@ def parse_args() -> argparse.Namespace:
         "--load-from",
         type=str,
         default=None,
+        # default="./checkpoint/MineRLObtainDiamondVectorObf-v0/DQfDAgent/200919_233031/19c84fb_ep_20.pt", # DQfD-5-flat-64
         # default="./checkpoint/MineRLTreechopVectorObf-v0/DQfDAgent/200918_043604/fadbf6b_ep_100.pt", # DQfD-20-flat-32
         # default="./checkpoint/MineRLTreechopVectorObf-v0/DQfDAgent/200915_024742/571f207_ep_50.pt", # DQfD-5-flat-32
         help="load the saved model and optimizer at the beginning",
@@ -88,7 +89,7 @@ def parse_args() -> argparse.Namespace:
         "--demo-path",
         type=str,
         default=None,
-        # default = "./data/minerlobtaindiamondvectorobf_disc_64_flat_20.pkl",
+        # default = "./data/minerlobtaindiamondvectorobf_disc_64_flat_5.pkl",
         help="demonstration path for learning from demo",
     )
     parser.add_argument(
@@ -98,7 +99,7 @@ def parse_args() -> argparse.Namespace:
         help="indicate integration test",
     )
     parser.add_argument(
-        "--is-discrete", action="store_false", default=True, help="if discrete actions used (do nto change!)"
+        "--is-discrete", action="store_false", default=True, help="if discrete actions used (do not change!)"
     )
     parser.add_argument(
         "--env", type=str, default="MineRLObtainDiamondVectorObf-v0", help="env for filename purposes"
