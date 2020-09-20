@@ -138,6 +138,8 @@ class DQNAgent(Agent):
 
     # pylint: disable=no-self-use
     def _preprocess_state(self, state: np.ndarray) -> torch.Tensor:
+    if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
+        state = self.MineRL_flatten_states(state)
         """Preprocess state so that actor selects an action."""
         state = torch.FloatTensor(state).to(device)
         return state

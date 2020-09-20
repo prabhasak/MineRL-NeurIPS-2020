@@ -53,7 +53,8 @@ def parse_args() -> argparse.Namespace:
         "--load-from",
         type=str,
         default=None,
-        # default="./checkpoint/MineRLTreechopVectorObf-v0/DQfDAgent/200915_024742/571f207_ep_50.pt",
+        # default="./checkpoint/MineRLTreechopVectorObf-v0/DQfDAgent/200918_043604/fadbf6b_ep_100.pt", # DQfD-20-flat-32
+        # default="./checkpoint/MineRLTreechopVectorObf-v0/DQfDAgent/200915_024742/571f207_ep_50.pt", # DQfD-5-flat-32
         help="load the saved model and optimizer at the beginning",
     )
     parser.add_argument(
@@ -69,10 +70,10 @@ def parse_args() -> argparse.Namespace:
         "--log", dest="log", action="store_false", help="turn on logging"
     )
     parser.add_argument(
-        "--save-period", type=int, default=5, help="save model period"
+        "--save-period", type=int, default=20, help="save model period"
     )
     parser.add_argument(
-        "--episode-num", type=int, default=50, help="total episode num"
+        "--episode-num", type=int, default=200, help="total episode num"
     )
     parser.add_argument(
         "--max-episode-steps", type=int, default=8000, help="max episode step"
@@ -106,7 +107,7 @@ def parse_args() -> argparse.Namespace:
         "--algo", type=str, default="DQfD", help="algo for filename purposes"
     )
     parser.add_argument(
-        "--num-actions", type=int, default=32, help="discrete actions used"
+        "--num-actions", type=int, default=64, help="discrete actions used"
     )
     parser.add_argument(
         "-conv", "--conv-layer", action="store_true", help="if conv layer used"
