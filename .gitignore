@@ -7,7 +7,7 @@ wandb*
 MUJOCO_LOG.TXT
 .coverage
 
-# *.pkl
+*.pkl
 *.log
 
 # build
@@ -18,8 +18,8 @@ dist
 # data
 data/distillation_buffer
 
-# /checkpoint/*
-# /data/*
+/checkpoint/*
+/data/*
 /.ipynb_checkpoints
 
 #readme

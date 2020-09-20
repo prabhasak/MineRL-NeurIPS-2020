@@ -54,7 +54,7 @@ def get_args():
     parser.add_argument('--view-npz-final', help='View npz file (only MineRL envs)', action='store_true')
 
     parser.add_argument('--episodic', help='Episodic data ', action='store_true')
-    parser.add_argument('--seed', help='Random generator seed', type=int, default=42)
+    # parser.add_argument('--seed', help='Random generator seed', type=int, default=42)
     args = parser.parse_args()
     return args
 
