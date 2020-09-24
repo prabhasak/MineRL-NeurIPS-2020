@@ -148,6 +148,10 @@ class DQfDAgent(DQNAgent):
 
             t_begin = time.time()
 
+            # Added by PK: flatten state
+            if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
+                    state = self.MineRL_flatten_states(state)
+                    
             while not done:
                 if self.args.render and self.i_episode >= self.args.render_after:
                     self.env.render()

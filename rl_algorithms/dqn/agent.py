@@ -120,15 +120,6 @@ class DQNAgent(Agent):
 
     def select_action(self, state: np.ndarray) -> np.ndarray:
         """Select an action from the input space."""
-
-        # print("inside select action")
-        # import pdb; pdb.set_trace()
-        # print(type(state))
-
-        # Added by PK: flatten self.curr_state
-        if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
-            state = self.MineRL_flatten_states(state)
-
         self.curr_state = state
         
         # epsilon greedy policy
@@ -144,39 +135,12 @@ class DQNAgent(Agent):
     # pylint: disable=no-self-use
     def _preprocess_state(self, state: np.ndarray) -> torch.Tensor:
         """Preprocess state so that actor selects an action."""
-        
-        # print("inside preprocess")
-        # import pdb; pdb.set_trace()
-        # print(type(state))
-        # print(len(state))
-
-        # if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
-        #     state = self.MineRL_flatten_states(state)
-
         state = torch.FloatTensor(state).to(device)
-        return state
-
-    # Added by PK: method for flattening MineRL obervations, only for competition envs
-    # Ideally would like to keep the two obervation contents (image, vector) separate
-    def MineRL_flatten_states(self, state_unflattened: np.ndarray) -> np.ndarray:
-        n, state = len(state_unflattened), np.array([])
-        # if state_unflattened[i] is Dict, cannot flatten! - ex: MineRLObtainDiamond-v0 cannot work
-        for i in range(n): # Should we normalize image (unint8 to float32)?
-            if 'VectorObf' not in self.env_info['name']:
-                state = np.append(state, state_unflattened[i].sample().flatten()) # for basic envs
-            else:
-                state = np.append(state, state_unflattened[i].flatten()) # for competition envs
-
         return state
 
     def step(self, action: np.ndarray) -> Tuple[np.ndarray, np.float64, bool, dict]:
         """Take an action and return the response of the env."""
         next_state, reward, done, info = self.env.step(action)
-        
-        # print("inside step")
-        # import pdb; pdb.set_trace()
-        # print(type(next_state))
-        # print(len(next_state))
 
         # Added by PK: flatten next_state
         if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
@@ -192,6 +156,13 @@ class DQNAgent(Agent):
             self._add_transition_to_memory(transition)
 
         return next_state, reward, done, info
+
+    # Added by PK: method for flattening MineRL obervations, only for competition envs
+    def MineRL_flatten_states(self, state_unflattened: np.ndarray) -> np.ndarray:
+        n, state = len(state_unflattened), np.array([])
+        for i in range(n): # Should we normalize image (unint8 to float32)?
+            state = np.append(state, state_unflattened[i].flatten()) # for competition envs
+        return state
 
     def _add_transition_to_memory(self, transition: Tuple[np.ndarray, ...]):
         """Add 1 step and n step transitions to memory."""
@@ -269,6 +240,10 @@ class DQNAgent(Agent):
             score = 0
 
             t_begin = time.time()
+
+            # Added by PK: flatten state
+            if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
+                    state = self.MineRL_flatten_states(state)
 
             while not done:
                 if self.args.render and self.i_episode >= self.args.render_after:
