@@ -120,12 +120,17 @@ class DQNAgent(Agent):
 
     def select_action(self, state: np.ndarray) -> np.ndarray:
         """Select an action from the input space."""
-        self.curr_state = state
 
-        # Added by PK: flatten next_state
+        # print("inside select action")
+        # import pdb; pdb.set_trace()
+        # print(type(state))
+
+        # Added by PK: flatten self.curr_state
         if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
             state = self.MineRL_flatten_states(state)
 
+        self.curr_state = state
+        
         # epsilon greedy policy
         if not self.args.test and self.epsilon > np.random.random():
             selected_action = np.array(self.env.action_space.sample())
@@ -138,9 +143,16 @@ class DQNAgent(Agent):
 
     # pylint: disable=no-self-use
     def _preprocess_state(self, state: np.ndarray) -> torch.Tensor:
-        if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
-            state = self.MineRL_flatten_states(state)
         """Preprocess state so that actor selects an action."""
+        
+        # print("inside preprocess")
+        # import pdb; pdb.set_trace()
+        # print(type(state))
+        # print(len(state))
+
+        # if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
+        #     state = self.MineRL_flatten_states(state)
+
         state = torch.FloatTensor(state).to(device)
         return state
 
@@ -160,6 +172,11 @@ class DQNAgent(Agent):
     def step(self, action: np.ndarray) -> Tuple[np.ndarray, np.float64, bool, dict]:
         """Take an action and return the response of the env."""
         next_state, reward, done, info = self.env.step(action)
+        
+        # print("inside step")
+        # import pdb; pdb.set_trace()
+        # print(type(next_state))
+        # print(len(next_state))
 
         # Added by PK: flatten next_state
         if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
@@ -246,9 +263,6 @@ class DQNAgent(Agent):
 
         for self.i_episode in range(1, self.args.episode_num + 1):
             state = self.env.reset()
-            # Added by PK: flatten state
-            if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
-                state = self.MineRL_flatten_states(state)
             self.episode_step = 0
             losses = list()
             done = False

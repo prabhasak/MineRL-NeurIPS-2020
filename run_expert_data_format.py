@@ -8,17 +8,20 @@ from pathlib import Path
 
 import gym
 import minerl
+from skimage import img_as_float
 from sklearn.neighbors import NearestNeighbors
 
-#Windows
-# path_pkl = 'C:/MineRL/medipixel/data/'
-# path_npy = 'C:/MineRL/data/32-means/'
-# path_npz = 'C:/MineRL/data/'
 
-#ecelbw002
 path_pkl = './data/'
-path_npy = './data/32-means/'
+path_npy = './data/32-means'
+
+#Windows
+# path_npz = 'C:/MineRL/data'
+# # path_npz = os.getenv('MINERL_DATA_ROOT')
+
+#Linux
 path_npz = '/home/grads/p/prabhasa/MineRL2020/data'
+# path_npz = os.environ('MINERL_DATA_ROOT')
 
 warnings.filterwarnings("ignore", category=UserWarning, module='gym')
 
@@ -44,6 +47,7 @@ def get_args():
     parser.add_argument('--view-vec', help='View vector data as npz or pkl', action='store_true')
     parser.add_argument('--view-full', help='View pov and vector data as npz or pkl', action='store_true')
 
+    parser.add_argument('-norm', '--normalize-pov', help='Convert pov from (0, 255) unit8 to (0, 1) float', action='store_true')
     parser.add_argument('-flatten', '--flatten-states', help='Convert current_state and next_state vector to a 12352-length array', action='store_true')
     parser.add_argument('-aggregate', '--aggregate-states', help='Add current_state and next_state vector to pov as a fourth channel', action='store_true')
     parser.add_argument('--traj-use', help='Number of trajectories used to create expert', type=int, default=5, choices=range(1, 211))
@@ -54,20 +58,21 @@ def get_args():
     parser.add_argument('--view-npz-final', help='View npz file (only MineRL envs)', action='store_true')
 
     parser.add_argument('--episodic', help='Episodic data ', action='store_true')
-    # parser.add_argument('--seed', help='Random generator seed', type=int, default=42)
+    parser.add_argument('--seed', help='Random generator seed', type=int, default=42)
     args = parser.parse_args()
     return args
 
-def MineRL_flatten_state(state_unflattened):
+def MineRL_flatten_state(args, state_unflattened):
     n, state = len(state_unflattened), np.array([])
+    if args.normalize_pov:
+        state_unflattened[0] = img_as_float(state_unflattened[0])
     for i in range(n):
         state = np.append(state, state_unflattened[i].flatten()) # for competition envs
     return state
 
 def MineRL_aggregate_state(state):
-    vector_scale = 1 / 255
-    pov = state['pov']
-    vector_scaled = state['vector'] / vector_scale
+    pov = img_as_float(state['pov'])
+    vector_scaled = state['vector']
     num_elem = pov.shape[-3] * pov.shape[-2]
     vector_channel = np.tile(vector_scaled, num_elem // vector_scaled.shape[-1]).reshape(*pov.shape[:-1], -1)  # noqa
     return np.concatenate([pov, vector_channel], axis=-1)
@@ -86,7 +91,7 @@ def main():
     env_id = args.env
     # exp_id = args.exp_id
 
-    # Convert vector component of expert data into pkl format
+    # Convert vector component of expert data into pkl format - INCORRECT. DO NOT USE
     if ((args.convert_vec) and ('MineRL' in env_id)): # If MineRL env, combine npz-s and convert to pkl
         # expert_data_pkl = {'state': [], 'action': [], 'reward': [], 'next_state': [], 'done': []}
         expert_data_npz = {'reward': [], 'observation$vector': [], 'action$vector': []}
@@ -141,8 +146,8 @@ def main():
                 # print(items)
 
                 if args.flatten_states: # convert current_state and next_state to a 12352-length array
-                    current_state = MineRL_flatten_state([items[0]['pov'], items[0]['vector']])
-                    next_state = MineRL_flatten_state([items[3]['pov'], items[3]['vector']])
+                    current_state = MineRL_flatten_state(args, [items[0]['pov'], items[0]['vector']])
+                    next_state = MineRL_flatten_state(args, [items[3]['pov'], items[3]['vector']])
                 elif args.aggregate_states: # add current_state and next_state vector to pov as a fourth channel
                     current_state = MineRL_aggregate_state(items[0])
                     next_state = MineRL_aggregate_state(items[3])
@@ -162,7 +167,7 @@ def main():
                 break
         # print(trajectory_count) # sanity check if all files were parsed
 
-        if args.flatten_states:
+        if args.flatten_states: # BOTH norm and without norm are stored with the same filename, feel free to change
             save_path_npz = os.path.join(path_pkl, env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_flat_'+str(trajectory_count))
             save_path_pkl = os.path.join(path_pkl, '{}.pkl'.format(env_id[:-3].lower()+'_disc_'+str(args.num_actions)+'_flat_'+str(trajectory_count)))
         elif args.aggregate_states:
@@ -211,7 +216,7 @@ def main():
 
     if args.view_npy: # view npy
         print('Here are some stats of the MineRL expert... ')
-        expert_data = np.load(os.path.join(path_npy, env_id+'.npy'), allow_pickle=True) #Gym-envs
+        expert_data = np.load(os.path.join(path_npy, f'{args.num_actions}-means', env_id+'.npy'), allow_pickle=True) #Gym-envs
         print(expert_data.shape)
 
 
