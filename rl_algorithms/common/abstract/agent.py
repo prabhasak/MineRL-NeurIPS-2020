@@ -135,6 +135,10 @@ class Agent(ABC):
                 if self.args.render:
                     self.env.render()
 
+                # Added by PK: flatten state
+                if (('MineRL' in self.env_info['name']) and (not self.env_info['conv_layer'])):
+                        state = self.MineRL_flatten_states(state)
+
                 action = self.select_action(state)
                 next_state, reward, done, _ = self.step(action)
 
