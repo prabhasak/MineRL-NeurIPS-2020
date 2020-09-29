@@ -26,7 +26,7 @@ import rl_algorithms.common.env.utils as env_utils
 import rl_algorithms.common.helper_functions as common_utils
 from rl_algorithms.utils import Config
 
-from xvfbwrapper import Xvfb # only for ecelbw00202
+# from xvfbwrapper import Xvfb # only for ecelbw00202
 
 import wandb
 # wandb.config["more"] = "custom"

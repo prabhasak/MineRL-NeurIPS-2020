@@ -1,47 +1,40 @@
-"""Config for DQfD on LunarLander-v2.
+"""Config for DQN on MineRL.
 
-- Author: Kyunghwan Kim
-- Contact: kh.kim@medipixel.io
+- Authors: Prabhasa, Kishan
+- Contact: 
 """
 from rl_algorithms.common.helper_functions import identity
 
 agent = dict(
-    type="DQfDAgent",
+    type="DQNAgent",
     hyper_params=dict(
-        gamma=0.9998,
+        gamma=0.995,
         tau=5e-3,
         buffer_size=int(1e5),  # openai baselines: int(1e4)
         batch_size=128,  # openai baselines: 32
-        update_starts_from=int(1e3),  # openai baselines: int(1e4)
+        update_starts_from=int(1e4),  # openai baselines: int(1e4)
         multiple_update=1,  # multiple learning updates
-        train_freq=8,  # in openai baselines, train_freq = 4
-        gradient_clip=0.5,  # dueling: 10.0
+        train_freq=1,  # in openai baselines, train_freq = 4
+        gradient_clip=10.0,  # dueling: 10.0
         n_step=10,
         w_n_step=1.0,
         w_q_reg=1e-7,
         per_alpha=0.6,  # openai baselines: 0.6
         per_beta=0.4,
-        per_eps=1e-3,
-        # fD
-        per_eps_demo=1.0,
-        lambda1=1.0,  # N-step return weight
-        lambda2=1.0,  # Supervised loss weight
-        # lambda3 = weight_decay (l2 regularization weight)
-        margin=0.8,
-        pretrain_step=int(1e3),
+        per_eps=1e-6,
         loss_type=dict(type="C51Loss"),
         # Epsilon Greedy
         max_epsilon=1.0,
         min_epsilon=0.01,  # openai baselines: 0.01
-        epsilon_decay=4e-6,  # openai baselines: 1e-7 / 1e-1
+        epsilon_decay=5e-6,  # openai baselines: 1e-7 / 1e-1
     ),
     learner_cfg=dict(
-        type="DQfDLearner",
+        type="DQNLearner",
         backbone=dict(),
         head=dict(
-            type="C51DuelingMLP",
+            type="C51DuelingMLPConv",
             configs=dict(
-                hidden_sizes=[256, 128],
+                hidden_sizes=[128, 64],
                 use_noisy_net=False,
                 v_min=-10,
                 v_max=10,
@@ -49,6 +42,6 @@ agent = dict(
                 output_activation=identity,
             ),
         ),
-        optim_cfg=dict(lr_dqn=1e-4, weight_decay=1e-5, adam_eps=1.5e-4),
+        optim_cfg=dict(lr_dqn=1e-4, weight_decay=1e-7, adam_eps=1.5e-4),
     ),
 )
